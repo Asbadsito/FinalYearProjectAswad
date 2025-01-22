@@ -1,0 +1,18 @@
+/* src/index.css or src/styles.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+html , body {
+  margin: 0;
+  height: 100%;
+}
+
+#root{
+  height: 100vh;
+}
+
+.app-container{
+  height: 100%;
+}
