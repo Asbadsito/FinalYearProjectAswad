@@ -1,0 +1,10 @@
+
+.swiper-slide img {
+  opacity: 0; 
+  transition: opacity 1s ease; 
+
+}
+
+.swiper-slide-active img {
+  opacity: 1; 
+}
