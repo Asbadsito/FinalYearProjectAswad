@@ -1,13 +1,12 @@
 import React from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react'; // Import Swiper React components
-import 'swiper/css'; // Import Swiper styles
-import 'swiper/css/bundle'; // This will import all Swiper styles, including Autoplay
+import { Swiper, SwiperSlide } from 'swiper/react'; 
+import 'swiper/css'; 
+import 'swiper/css/bundle'; 
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import 'swiper/css/effect-fade'; // Import styles for fade effect
-import './slider.css';
+import 'swiper/css/effect-fade'; 
 
-import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules'; // Import the fade effect
+import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules'; 
 
 const ImageSlider = () => {
   return (
