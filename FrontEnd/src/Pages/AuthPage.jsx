@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './AuthPage.css';
 import ImageSlider from '../Components/Registration/ImageSlider';
+import { motion } from 'framer-motion';
 
 const AuthPage = () => {
+  const [active, setActive] = useState("signin");
+
   return (
     <div className="authContainer flex flex-col lg:flex-row relative h-screen">
 
@@ -10,10 +13,10 @@ const AuthPage = () => {
         <ImageSlider />
       </div>
 
-      {/* The container that has all registration components, for my future self please dont touch this shit I dont understand how I got the responsive design for this working */}
+      {/* For my future self : DO NOT CHANGE THIS shit , it took me ages to make the responsive design working*/}
       <div className="registrationContainer flex flex-col lg:h-full lg:w-[58%] flex-grow min-h-[300px] sm:min-h-[50vh]">
-        
-        {/*Header*/}
+
+        {/* header of the registration */}
         <div className="header w-full flex flex-col items-center py-4">
           <div className="flex flex-row items-center justify-center space-x-4">
             <img src='/images/LogoWellShareNet.png' className='w-44 h-auto' alt="Logo" />
@@ -23,18 +26,40 @@ const AuthPage = () => {
           </div>
         </div>
 
-        {/*Body (Registration and Login)*/}
-        <div className="body-container flex flex-col items-center bg-red-500 w-full flex-grow "> 
-          <div className="registrationToggle flex flex-row">
-            <button className="SignIn">Sign in</button>
-            <button className="SignUp">Sign Up</button>
-          </div>
+        <div className="body-container flex flex-col items-center w-full flex-grow">
+          <div className="registrationToggle relative flex flex-row items-center justify-center bg-blue-950 rounded-full h-[40px] w-[240px] overflow-hidden border border-white">
 
+        {/* Leave a comment since I will forget how I did this, consult the frame motion library to know how to 
+        implement an asbolute div that will act as the toggle background */}
+            <motion.div
+              className="absolute top-[4px] left-0 h-[78%] w-[45%] bg-white rounded-full"
+              animate={{ x: active === "signin" ? "5%" : "115%" }}
+              transition={{ type: "spring", stiffness: 150, damping: 30 }}
+            />
+
+            <button
+              className={`relative z-10 w-28 h-7 rounded-full transition-all ${
+                active === "signin" ? "text-blue-950" : "text-white"
+              }`}
+              onClick={() => setActive("signin")}
+            >
+              Sign in
+            </button>
+
+            <button
+              className={`relative z-10 w-28 h-7 rounded-full transition-all ${
+                active === "signup" ? "text-blue-950" : "text-white"
+              }`}
+              onClick={() => setActive("signup")}
+            >
+              Sign Up
+            </button>
+          </div>
         </div>
 
-        {/*Footer */}
-        <div className='footer h-auto w-full bg-green-400'>asdfsadf
-          
+        {/* footer - will include the terms and GRPC data things*/}
+        <div className='footer h-auto w-full bg-green-400'>
+          asdfsadf
         </div>
 
       </div>

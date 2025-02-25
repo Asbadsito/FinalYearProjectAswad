@@ -10,11 +10,8 @@
 }
 
 .registrationToggle button{
-    padding: 10px;
-    background-color: aqua;
-}
-
-.SignIn{
+    font-family: "Roboto";
+    font-weight: 400;
 }
 
 
