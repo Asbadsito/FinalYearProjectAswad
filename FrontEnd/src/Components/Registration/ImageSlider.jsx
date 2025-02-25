@@ -21,6 +21,7 @@ const ImageSlider = () => {
       }}
       speed={1000} 
       modules={[Autoplay]} 
+      allowTouchMove={false}
       className="w-full h-full" 
     >
       <SwiperSlide>

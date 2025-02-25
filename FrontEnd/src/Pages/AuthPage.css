@@ -1,10 +1,23 @@
-.authContainer{
-    height: 100%;
-    width: 100%;
-    display: flex;
+.logo-text{
+    font-family: "Montserrat";
+    font-weight: 550;
 }
 
-/* Add shadow to the left side of the div */
+.registrationToggle{
+    font-family: "Inter";
+    font-weight: 350;
+    position: relative;  /* Ensure it doesn't float */
+}
+
+.registrationToggle button{
+    padding: 10px;
+    background-color: aqua;
+}
+
+.SignIn{
+}
+
+
 
 
 
