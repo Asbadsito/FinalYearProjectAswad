@@ -1,0 +1,44 @@
+.loginText{
+    font-family: "Poppins";
+    font-weight: 600;
+}
+
+.credentials{
+    font-family: "Inter";
+    font-weight: 300;
+
+}
+
+.inputLabel{
+    font-family: "Poppins";
+    font-weight: 500;
+    font-size: 11px;
+}
+
+.logbut:hover{
+    opacity: 0.75;
+    cursor: pointer;
+}
+
+.newHere{
+    font-family: "Inter";
+    font-size: 12px;
+    color: rgb(141, 140, 140);
+}
+
+.newHere span{
+    font-weight: 700;
+}
+
+.newHere span:hover{
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.footer p{
+    font-family: "Inter";
+    font-weight: 200;
+    color: rgb(78, 3, 78);
+    text-decoration: underline;
+    
+}

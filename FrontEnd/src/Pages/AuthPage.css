@@ -10,10 +10,14 @@
 }
 
 .registrationToggle button{
-    font-family: "Roboto";
+    font-family: "Poppins";
     font-weight: 400;
 }
 
+.headerText{
+    font-family: "Poppins";
+    font-weight: 500;
+}
 
 
 
