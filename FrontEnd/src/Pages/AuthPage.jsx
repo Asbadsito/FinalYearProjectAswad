@@ -65,7 +65,7 @@ const AuthPage = () => {
         </div>
 
         {/* footer - will include the terms and GRPC data things*/}
-        <div className='footer h-auto w-full flex justify-center gap-6 lg:mb-20'>
+        <div className='footer h-auto w-full flex justify-center gap-6 lg:mb-16'>
           <p className='text-sm'>Terms and Conditions Apply</p>
           <p className='text-sm'>Read Our GDPR policies</p>
           <p className='text-sm'>Github repository</p>

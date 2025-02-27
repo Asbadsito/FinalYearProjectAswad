@@ -42,3 +42,26 @@
     text-decoration: underline;
     
 }
+
+.footer p:hover{
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.error-message {
+  opacity: 1;
+  transition: opacity 1s ease-out; 
+}
+
+.error-message.fade-out {
+  opacity: 0;
+}
+
+.success-message {
+  opacity: 1;
+  transition: opacity 1s ease-out; 
+}
+
+.success-message.fade-out{
+ opacity: 0;
+}
