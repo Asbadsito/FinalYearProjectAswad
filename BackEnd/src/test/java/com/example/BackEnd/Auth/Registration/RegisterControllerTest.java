@@ -35,7 +35,7 @@ class RegisterControllerTest {
 		User user2 = new User("test_username2" , "randomPassword2");
 		User user3 = new User("test_username3" , "randomPassword3");
 
-		// We will now test http responses from this controller to see if users are being created
+		// Here I test http responses for this controller to see if users are being created using mockMVC
 		String user1_json = objectMapper.writeValueAsString(user1);
 		String user2_json = objectMapper.writeValueAsString(user2);
 		String user3_json = objectMapper.writeValueAsString(user3);

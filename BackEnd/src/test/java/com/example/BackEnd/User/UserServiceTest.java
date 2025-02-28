@@ -39,7 +39,9 @@ class UserServiceTest {
 	@Test
 	void itShouldFailRegistration(){
 		User user2 = new User("TestingUser" , "TestingUserPassword");
-		when(userRepository.save(ArgumentMatchers.any(User.class))).thenThrow(new RuntimeException("Database error"));
+
+		//Here I mock a run time exception when saving the user,so that registerUser handles it and returns the issue message as expected
+		when(userRepository.save(ArgumentMatchers.any(User.class))).thenThrow(new RuntimeException("Database error. User could not be saved"));
 
 		String messageOfRegistration = userService.registerUser(user2.getUsername() , user2.getPassword());
 		assertEquals("Issue" , messageOfRegistration);
