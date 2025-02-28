@@ -31,7 +31,7 @@ public class RegisterController {
 				 }
 				 else{
 					 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-									 .body("There was an issue creating the user. Please try again.");
+									 .body(message);
 				 }
       }
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)

@@ -1,6 +1,7 @@
 package com.example.BackEnd.User;
 import com.example.BackEnd.Util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.Random;
@@ -11,6 +12,8 @@ public class UserService {
 	private final UserRepository userRepository;
   private final Logger logger = Logger.getLogger(UserService.class.getName());
 
+	private final PasswordEncoder passwordEncoder;
+
 	private final PasswordUtil passwordUtil;
 	private final int USER_ID_LENGTH = 5;
 	private final String ALPHA_NUMERICAL_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -18,8 +21,9 @@ public class UserService {
 	// More fields as needed
 
 	@Autowired
-	public UserService(UserRepository userRepository, PasswordUtil passwordUtil){
+	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PasswordUtil passwordUtil){
 		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
 		this.passwordUtil = passwordUtil;
 	}
 	public Optional<User> getUserByName(String username){
@@ -35,7 +39,7 @@ public class UserService {
 			user.setPassword(password);
 		}
 		else{
-			return "Issue (Password not validated)";
+			return "Please enter a password of at least 7 characters AND 1 non-letter character";
 		}
 		user.setId(createRandomId());
 
@@ -51,6 +55,26 @@ public class UserService {
 			logger.info(e.getMessage());
 			return errorMessage;
 	 }
+	}
+
+	public String loginUser(String username , String password){
+
+		Optional<User> possibleUser = userRepository.findByUsername(username);
+		if(possibleUser.isEmpty()){
+			return "User was not found. Please register";
+		}
+		User user1 = possibleUser.get();
+
+		if(!(passwordUtil.validatePassword(password))){
+			return "This is not a valid password";
+		}
+
+		if(passwordEncoder.matches(password , user1.getPassword())){
+			return "success";
+		}
+		else {
+			return "Password was incorrect, please try again";
+		}
 	}
 
 	public boolean doesUserExist(String username){

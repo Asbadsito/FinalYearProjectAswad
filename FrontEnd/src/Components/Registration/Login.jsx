@@ -41,7 +41,7 @@ const Login = ({ setActive }) => {
   }
 
   const sendLoginRequest = () => {
-    // Here I make the login logic GET request
+    // Here I make the login logic POST request
   }
 
   return (
