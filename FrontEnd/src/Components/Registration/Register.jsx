@@ -4,7 +4,7 @@ import UserInput from './UserInput'
 import PasswordInput from './PasswordInput'
 import axios from 'axios'
 
-const Register = () => {
+const Register = ( {setActive} ) => {
  
   const [username , setUsername] = useState("")
   const [password , setPassword] = useState("")
@@ -77,6 +77,7 @@ const Register = () => {
         setErrorMessage("")
         setFadeSuccess(false);  
         setTimeout(() => setFadeSuccess(true) , 4000);
+        setTimeout(() => setActive("signin") , 5000)
     }
     catch(error){
         setLoading(false)

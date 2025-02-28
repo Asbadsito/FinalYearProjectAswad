@@ -28,11 +28,11 @@ public class UserService {
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
-		user.setId(generateRandomId());
+		user.setId(createRandomId());
 
 	 try{
 		 userRepository.save(user);
-		 logger.info("User : " + user.getUsername() + " has been saved to the database crack !");
+		 logger.info("User : " + user.getUsername() + " has been saved to the database successfully !");
 		 return "success";
 	 }
 	 catch (Exception e){
@@ -48,7 +48,7 @@ public class UserService {
 		return userRepository.findByUsername(username).isPresent();
 	}
 
-	private String generateRandomId() {
+	private String createRandomId() {
 		String id = "#" + getRandomString();
 
 		if(userRepository.existsById(id)){

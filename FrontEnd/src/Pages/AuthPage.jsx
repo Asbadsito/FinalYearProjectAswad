@@ -60,7 +60,7 @@ const AuthPage = () => {
           </div>
 
           <div className="registrationInputContainer w-full flex-1 mt-1 flex flex-col pt-2">
-            {active === "signin" ? <Login setActive={setActive} /> : <Register /> }
+            {active === "signin" ? <Login setActive={setActive} /> : <Register setActive={setActive} /> }
           </div>
         </div>
 
