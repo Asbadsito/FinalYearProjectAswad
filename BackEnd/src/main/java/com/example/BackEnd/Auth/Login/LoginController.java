@@ -3,6 +3,8 @@ package com.example.BackEnd.Auth.Login;
 import com.example.BackEnd.User.User;
 import com.example.BackEnd.User.UserService;
 import jakarta.validation.Valid;
+import org.hibernate.internal.build.AllowNonPortable;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ public class LoginController {
 
 	private final UserService userService;
 
+	@Autowired
 	public LoginController(UserService userService){
 		this.userService = userService;
 	}

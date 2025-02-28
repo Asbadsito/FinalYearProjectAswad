@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Login from '../Components/Registration/Login';
 import Register from '../Components/Registration/Register';
 
-const AuthPage = () => {
+const AuthPage = ({setUserLoggedIn}) => {
   const [active, setActive] = useState("signin");
 
   return (
@@ -60,7 +60,7 @@ const AuthPage = () => {
           </div>
 
           <div className="registrationInputContainer w-full flex-1 mt-1 flex flex-col pt-2">
-            {active === "signin" ? <Login setActive={setActive} /> : <Register setActive={setActive} /> }
+            {active === "signin" ? <Login setActive={setActive} setUserLoggedIn={setUserLoggedIn}/> : <Register setActive={setActive} /> }
           </div>
         </div>
 

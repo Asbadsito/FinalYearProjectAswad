@@ -5,7 +5,7 @@ import UserInput from './UserInput'
 import { useState } from 'react'
 import axios from 'axios'
 
-const Login = ({ setActive }) => {
+const Login = ({ setActive , setUserLoggedIn}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -27,7 +27,7 @@ const Login = ({ setActive }) => {
       }
 
       if(!validatePassword()){
-        showErrorMessage("Password CANNOT be shorter than 8 characters. Please try again.")
+        showErrorMessage("Password CANNOT be shorter than 8 characters AND needs 1 Non-letter character at least.")
         return;
       }
 
@@ -65,12 +65,17 @@ const Login = ({ setActive }) => {
                 },
         })
 
-        setLoading(false)
-        showErrorMessage(response.data)
+        setLoading(false);
+
+        if(response.status == 200){
+          setUserLoggedIn(true);
+        }
       }
       catch(error){
         setLoading(false)
-        showErrorMessage(('Error: ' + (error.response ? error.response.data : error.message)))
+        showErrorMessage(((error.response ? error.response.data : error.message)))
+        setPassword("");
+        setUsername("");
       }
   }
 
