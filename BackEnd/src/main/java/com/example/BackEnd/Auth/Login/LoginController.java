@@ -2,6 +2,7 @@ package com.example.BackEnd.Auth.Login;
 
 import com.example.BackEnd.User.User;
 import com.example.BackEnd.User.UserService;
+import com.example.BackEnd.Util.JWTService;
 import jakarta.validation.Valid;
 import org.hibernate.internal.build.AllowNonPortable;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
 	private final UserService userService;
+	private final JWTService jwtService;
 
 	@Autowired
-	public LoginController(UserService userService){
+	public LoginController(UserService userService , JWTService jwtService){
 		this.userService = userService;
+		this.jwtService = jwtService;
 	}
 
 	@PostMapping("/loginUser")
@@ -25,7 +28,8 @@ public class LoginController {
 		String message = userService.loginUser(user.getUsername() , user.getPassword());
 
 		if(message.equalsIgnoreCase("success")){
-			return ResponseEntity.status(HttpStatus.OK).body(message);
+			String jsonToken = jwtService.generateToken(user.getUsername());
+			return ResponseEntity.status(HttpStatus.OK).body(jsonToken);
 		}
 		else{
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);

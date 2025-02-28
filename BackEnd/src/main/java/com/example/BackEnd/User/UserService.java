@@ -1,4 +1,5 @@
 package com.example.BackEnd.User;
+import com.example.BackEnd.Util.CustomUserDetails;
 import com.example.BackEnd.Util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -6,6 +7,8 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.Random;
 import java.util.logging.Logger;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Service
 public class UserService {
@@ -28,6 +31,17 @@ public class UserService {
 	}
 	public Optional<User> getUserByName(String username){
 		return userRepository.findByUsername(username);
+	}
+
+	// This method is important to load customUserDetails which is a spring security interface to facilitate the JWT filter
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+		Optional<User> user = userRepository.findByUsername(username);
+
+		if(user.isEmpty()){
+			throw new UsernameNotFoundException("User not found");
+		}
+		return new CustomUserDetails(user.get());
 	}
 
 	public String registerUser(String username , String password){

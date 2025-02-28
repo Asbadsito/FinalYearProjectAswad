@@ -33,7 +33,8 @@ const Login = ({ setActive , setUserLoggedIn}) => {
 
       setErrorMessage("");
       setLoading(true);
-      // Make the login request in here 
+
+      // Make the login request dont forget
       sendLoginRequest();
   }
 
@@ -49,8 +50,7 @@ const Login = ({ setActive , setUserLoggedIn}) => {
 
   const sendLoginRequest = async () => {
 
-
-    // Here I make the login logic POST request
+    // WRite login request in here 
       const url = "http://localhost:8080/login/loginUser"
       const User = {
         username : username,
@@ -68,7 +68,7 @@ const Login = ({ setActive , setUserLoggedIn}) => {
         setLoading(false);
 
         if(response.status == 200){
-          setUserLoggedIn(true);
+          showErrorMessage(response.data)
         }
       }
       catch(error){

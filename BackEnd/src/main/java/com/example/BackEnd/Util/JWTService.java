@@ -2,9 +2,6 @@ package com.example.BackEnd.Util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +14,6 @@ import java.util.function.Function;
 @Service
 public class JWTService {
 
-	@Value("${jwt.secret}")
-	private String secret;
-
 	public String generateToken(String userName) {
 		Map<String, Object> claims = new HashMap<>();
 		return createToken(claims, userName);
@@ -31,13 +25,12 @@ public class JWTService {
 						.subject(userName)
 						.issuedAt(new Date())
 						.expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30)) // Token valid for 30 minutes
-						.signWith(getSignKey(), Jwts.SIG.HS256)
+						.signWith(getSignKey(), Jwts.SIG.HS512)
 						.compact();
 	}
 
 	private SecretKey getSignKey() {
-		byte[] keyBytes = Decoders.BASE64.decode(secret);
-		return Keys.hmacShaKeyFor(keyBytes);
+		return Jwts.SIG.HS512.key().build();
 	}
 
 	public String extractUsername(String token) {
