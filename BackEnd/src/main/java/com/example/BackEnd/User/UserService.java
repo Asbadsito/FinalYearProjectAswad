@@ -11,14 +11,16 @@ public class UserService {
 	private final UserRepository userRepository;
   private final Logger logger = Logger.getLogger(UserService.class.getName());
 
+	private final PasswordUtil passwordUtil;
 	private final int USER_ID_LENGTH = 5;
 	private final String ALPHA_NUMERICAL_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 	// More fields as needed
 
 	@Autowired
-	public UserService(UserRepository userRepository){
+	public UserService(UserRepository userRepository, PasswordUtil passwordUtil){
 		this.userRepository = userRepository;
+		this.passwordUtil = passwordUtil;
 	}
 	public Optional<User> getUserByName(String username){
 		return userRepository.findByUsername(username);
@@ -27,7 +29,14 @@ public class UserService {
 	public String registerUser(String username , String password){
 		User user = new User();
 		user.setUsername(username);
-		user.setPassword(password);
+
+		if(passwordUtil.validatePassword(password)) {
+			password = passwordUtil.encodePassword(password);
+			user.setPassword(password);
+		}
+		else{
+			return "Issue (Password not validated)";
+		}
 		user.setId(createRandomId());
 
 	 try{
