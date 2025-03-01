@@ -58,18 +58,29 @@ const Login = ({ setActive , setUserLoggedIn}) => {
       };
 
       try{
-        
         const response = await axios.post(url, User ,{
                 headers: {
                   'Content-Type' : 'application/json',
                 },
+                withCredentials: true, 
         })
+
+        console.log("Full Response:", response);
+        
+        const token = response.headers["authorization"] || response.headers["Authorization"]; 
+          
+        if (token) {
+          const cleanedToken = token.replace("Bearer ", "").trim();  
+          localStorage.setItem("authToken", cleanedToken); 
+          setLoading(false);
+          setUserLoggedIn(true);
+        } 
+        else {
+          showErrorMessage("No token found in response headers. We could not proceed with the authentication. Please try again.");
+        }
 
         setLoading(false);
 
-        if(response.status == 200){
-          showErrorMessage(response.data)
-        }
       }
       catch(error){
         setLoading(false)

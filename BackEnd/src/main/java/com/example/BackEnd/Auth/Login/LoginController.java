@@ -6,6 +6,7 @@ import com.example.BackEnd.Util.JWTService;
 import jakarta.validation.Valid;
 import org.hibernate.internal.build.AllowNonPortable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +30,9 @@ public class LoginController {
 
 		if(message.equalsIgnoreCase("success")){
 			String jsonToken = jwtService.generateToken(user.getUsername());
-			return ResponseEntity.status(HttpStatus.OK).body(jsonToken);
+			return ResponseEntity.status(HttpStatus.OK)
+											.header(HttpHeaders.AUTHORIZATION, "Bearer " + jsonToken)
+											.body(message);
 		}
 		else{
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
