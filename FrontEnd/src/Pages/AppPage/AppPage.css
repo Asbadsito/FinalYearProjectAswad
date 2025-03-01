@@ -1,0 +1,16 @@
+
+.appPagesContainer {
+  height: 100vh;          
+  display: flex;
+  flex-direction: column;
+  padding-top: 56px;      
+}
+
+.appPagesContentContainer {
+  flex: 1;                
+  overflow-y: auto;       
+  background-color: rgb(255, 255, 255);  
+  margin-top: 30px;
+  border-radius: 12px;
+  padding: 20px;
+}

@@ -3,14 +3,15 @@ import "./index.css"
 import AuthPage from "./Pages/AuthPage/AuthPage"
 import AppPage from "./Pages/AppPage/AppPage"
 import HomePage from "./Pages/HomePage/HomePage"
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route , Navigate} from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage"
 
 
 function App() {
 
-  const[isUserLoggedIn , setUserLoggedIn] = useState(false)
+  const[isUserLoggedIn , setUserLoggedIn] = useState(false);
+  const[loadingScreen , setLoadingScreen] = useState(false);
 
   useEffect(() => {
     setUserLoggedIn(true)
@@ -23,7 +24,7 @@ function App() {
       setUserLoggedIn(true);
       } 
       else {
-        console.log("Token was not valid, setting the logged in to false")
+        console.log("Token was not valid")
       setUserLoggedIn(false);
       }
     }
@@ -31,6 +32,8 @@ function App() {
       console.log("No token found in local storage")
       setUserLoggedIn(false);
     }
+
+    
   }, []);  
 
 
@@ -52,19 +55,26 @@ function App() {
 
   return (
      <Router>
-      <div className="app_container">
-        {isUserLoggedIn ? (
+     
+      <div className="app_container w-full h-full">
+        {loadingScreen ? (
+          <div className="loading-screen flex flex-col justify-center">
+            <img src="/gifs/loadingCircle.gif" className="w-24 h-auto animate-pulse"></img>
+            <div className="text-black text-[20px] animate-pulse"> Loading... </div>
+          </div>
+        ) : isUserLoggedIn ? (
           <Routes>
             <Route path="/" element={<AppPage />}>
-              <Route path="/homePage" element={<HomePage />}/>
-              <Route path="/profilePage" element={<ProfilePage />}/>
+              <Route index element={<Navigate to="/homePage" />} />
+              <Route path="/homePage" element={<HomePage />} />
+              <Route path="/profilePage" element={<ProfilePage />} />
             </Route>
           </Routes>
-          
         ) : (
-          <AuthPage setUserLoggedIn={setUserLoggedIn} />
+          <AuthPage setUserLoggedIn={setUserLoggedIn} setLoadingScreen={setLoadingScreen}/>
         )}
       </div>
+
     </Router>
     
   )

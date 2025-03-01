@@ -5,7 +5,7 @@ import UserInput from './UserInput'
 import { useState } from 'react'
 import axios from 'axios'
 
-const Login = ({ setActive , setUserLoggedIn}) => {
+const Login = ({ setActive , setUserLoggedIn , setLoadingScreen}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -71,13 +71,25 @@ const Login = ({ setActive , setUserLoggedIn}) => {
         if (token) {
           const cleanedToken = token.replace("Bearer ", "").trim();  
           localStorage.setItem("authToken", cleanedToken); 
-          setLoading(false);
+          setLoadingScreen(true)
+          
+          setTimeout(() => {
+            document.querySelector('.loading-screen').classList.add('hidden');
+            
+            
+        }, 2500);
+        
+        setTimeout(() => {
           setUserLoggedIn(true);
+          setLoadingScreen(false);  
+           
+        }, 2400); 
+          
         } 
         else {
           showErrorMessage("No token found in response headers. We could not proceed with the authentication. Please try again.");
         }
-
+        
         setLoading(false);
 
       }
