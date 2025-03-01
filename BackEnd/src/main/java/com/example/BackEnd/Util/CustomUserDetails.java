@@ -14,38 +14,36 @@ public class CustomUserDetails implements UserDetails{
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// Return authorities (roles) assigned to the user
-		// Assuming that your User object has roles, but for simplicity, using "ROLE_USER" here.
 		return Collections.singletonList(() -> "ROLE_USER");
 	}
 
 	@Override
 	public String getPassword() {
-		return null;
+		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		return null;
+		return user.getUsername();
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return UserDetails.super.isAccountNonExpired();
+		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return UserDetails.super.isAccountNonLocked();
+		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return UserDetails.super.isCredentialsNonExpired();
+		return true;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return UserDetails.super.isEnabled();
+		return true;
 	}
 }

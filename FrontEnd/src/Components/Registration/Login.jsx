@@ -62,7 +62,6 @@ const Login = ({ setActive , setUserLoggedIn}) => {
                 headers: {
                   'Content-Type' : 'application/json',
                 },
-                withCredentials: true, 
         })
 
         console.log("Full Response:", response);

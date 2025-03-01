@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 public class PasswordUtil {
 
 	private final PasswordEncoder passwordEncoder;
-	private static final Logger logger = LoggerFactory.getLogger(PasswordUtil.class);
 
 	public PasswordUtil(PasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
@@ -23,10 +22,8 @@ public class PasswordUtil {
 		if(password.length() > 7
 		&& password.matches("^(?=.*[0-9@$!%*?&]).{7,}$")
 		&& password.length() < 30){
-			logger.info("Password has been validated good");
 			return true;
 		}
-		logger.info("Password was not validated");
 		return false;
 	}
 }

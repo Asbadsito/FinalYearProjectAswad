@@ -33,7 +33,7 @@ public class UserService {
 		return userRepository.findByUsername(username);
 	}
 
-	// This method is important to load customUserDetails which is a spring security interface to facilitate the JWT filter
+	// This method might not be necessary in the jwt filter, spring security uses UserDetails so i thought of wrapping my user just in case
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		Optional<User> user = userRepository.findByUsername(username);
@@ -84,6 +84,7 @@ public class UserService {
 		}
 
 		if(passwordEncoder.matches(password , user1.getPassword())){
+			logger.info("A user has logged in!");
 			return "success";
 		}
 		else {
