@@ -64,7 +64,7 @@ const Login = ({ setActive , setUserLoggedIn , setLoadingScreen}) => {
                 },
         })
 
-        console.log("Full Response:", response);
+        console.log("Response:", response);
         
         const token = response.headers["authorization"] || response.headers["Authorization"]; 
           

@@ -13,3 +13,13 @@
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.6); 
   z-index: 10;         
 }
+
+.menuIcon{
+    height: auto;
+    width: 30px;
+}
+
+.menuIcon:hover{
+    cursor: pointer;
+    opacity: 0.8;
+}

@@ -37,9 +37,12 @@ public class JWTFilter extends OncePerRequestFilter {
 	}
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
+		logger.info("If user has reached here the filter has started :");
 		//We continue the filter chain without making use of the JWTfilter for login or registration endpoints
-		if (request.getServletPath().contains("/registration") || request.getServletPath().contains("/login")) {
+		if (request.getServletPath().equals("/registration/registerUser") || request.getServletPath().equals("/login/loginUser")) {
 			filterChain.doFilter(request, response);
+			logger.info("THe user has skipped the jwt filter!");
 			return;
 		}
 
@@ -96,7 +99,7 @@ public class JWTFilter extends OncePerRequestFilter {
 			}
 		}
 		else {
-			logger.info("JWT Error");
+			logger.info("JWT Error - JWT filter ");
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			response.getWriter().write("JWT token error. Could not authenticate");
 			return;
