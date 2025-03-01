@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import './AuthPage.css';
-import ImageSlider from '../Components/Registration/ImageSlider';
+import ImageSlider from '../../Components/Registration/ImageSlider';
 import { motion } from 'framer-motion';
-import Login from '../Components/Registration/Login';
-import Register from '../Components/Registration/Register';
+import Login from '../../Components/Registration/Login';
+import Register from '../../Components/Registration/Register';
 
 const AuthPage = ({setUserLoggedIn}) => {
   const [active, setActive] = useState("signin");
