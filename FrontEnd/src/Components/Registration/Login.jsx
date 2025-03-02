@@ -5,7 +5,7 @@ import UserInput from './UserInput'
 import { useState } from 'react'
 import axios from 'axios'
 
-const Login = ({ setActive , setUserLoggedIn , setLoadingScreen}) => {
+const Login = ({ setActive , setUserLoggedIn , setLoadingScreen , setGlobalUsername}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -70,9 +70,10 @@ const Login = ({ setActive , setUserLoggedIn , setLoadingScreen}) => {
           
         if (token) {
           const cleanedToken = token.replace("Bearer ", "").trim();  
-          localStorage.setItem("authToken", cleanedToken); 
+          localStorage.setItem("authToken", cleanedToken);
+          localStorage.setItem("username" , response.data);
+          setGlobalUsername(response.data);
           setLoadingScreen(true)
-          
           setTimeout(() => {
             document.querySelector('.loading-screen').classList.add('hidden');
             

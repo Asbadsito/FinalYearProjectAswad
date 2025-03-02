@@ -12,11 +12,16 @@ function App() {
 
   const[isUserLoggedIn , setUserLoggedIn] = useState(false);
   const[loadingScreen , setLoadingScreen] = useState(false);
+  const[globalUsername , setGlobalUsername] = useState(localStorage.getItem("username") || "");
 
   useEffect(() => {
     setUserLoggedIn(true)
     const token = localStorage.getItem('authToken');
     console.log("Token from localStorage: ", token); 
+
+    if(localStorage.getItem("username")){
+      setGlobalUsername(localStorage.getItem("username"))
+    }
 
     if (token) {
       if(checkIfTokenIsValid(token)){
@@ -56,7 +61,7 @@ function App() {
   return (
      <Router>
      
-      <div className="app_container w-full h-full">
+      <div className="app_container w-full h-full relative">
         {loadingScreen ? (
           <div className="loading-screen flex flex-col justify-center">
             <img src="/gifs/loadingCircle.gif" className="w-24 h-auto animate-pulse"></img>
@@ -64,14 +69,14 @@ function App() {
           </div>
         ) : isUserLoggedIn ? (
           <Routes>
-            <Route path="/" element={<AppPage />}>
+            <Route path="/" element={<AppPage globalUsername={globalUsername}/>}>
               <Route index element={<Navigate to="/homePage" />} />
               <Route path="/homePage" element={<HomePage />} />
               <Route path="/profilePage" element={<ProfilePage />} />
             </Route>
           </Routes>
         ) : (
-          <AuthPage setUserLoggedIn={setUserLoggedIn} setLoadingScreen={setLoadingScreen}/>
+          <AuthPage setUserLoggedIn={setUserLoggedIn} setLoadingScreen={setLoadingScreen} setGlobalUsername={setGlobalUsername}/>
         )}
       </div>
 

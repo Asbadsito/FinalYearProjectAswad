@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Login from '../../Components/Registration/Login';
 import Register from '../../Components/Registration/Register';
 
-const AuthPage = ({setUserLoggedIn , setLoadingScreen}) => {
+const AuthPage = ({setUserLoggedIn , setLoadingScreen , setGlobalUsername}) => {
   const [active, setActive] = useState("signin");
 
   return (
@@ -16,7 +16,7 @@ const AuthPage = ({setUserLoggedIn , setLoadingScreen}) => {
       </div>
 
       {/* For my future self : DO NOT CHANGE THIS shit , it took me ages to make the responsive design working for this specific div*/}
-      <div className="registrationContainer flex flex-col lg:h-full lg:w-[58%] flex-grow min-h-[300px] sm:min-h-[50vh] ">
+      <div className="registrationContainer bg-white flex flex-col lg:h-full lg:w-[58%] flex-grow min-h-[300px] sm:min-h-[50vh] ">
 
         {/* header of the registration */}
         <div className="header w-full flex flex-col items-center py-2 lg:mt-8">
@@ -60,7 +60,7 @@ const AuthPage = ({setUserLoggedIn , setLoadingScreen}) => {
           </div>
 
           <div className="registrationInputContainer w-full flex-1 mt-1 flex flex-col pt-2">
-            {active === "signin" ? <Login setActive={setActive} setUserLoggedIn={setUserLoggedIn} setLoadingScreen={setLoadingScreen}/> : <Register setActive={setActive} /> }
+            {active === "signin" ? <Login setActive={setActive} setUserLoggedIn={setUserLoggedIn} setLoadingScreen={setLoadingScreen} setGlobalUsername={setGlobalUsername}/> : <Register setActive={setActive} /> }
           </div>
         </div>
 

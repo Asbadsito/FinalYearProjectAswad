@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
+import './Sidebar.css'
 
 const SideBar = () => {
    
-  const[isOpen , setIsOpen] = useState(false);
   return (
-    <div>hello</div>
+    <div className='sidebarContainer h-full w-44'></div>
   )
 }
 

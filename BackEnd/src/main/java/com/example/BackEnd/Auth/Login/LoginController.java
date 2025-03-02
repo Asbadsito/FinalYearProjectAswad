@@ -35,7 +35,7 @@ public class LoginController {
 			String jsonToken = jwtService.generateToken(user.getUsername());
 			return ResponseEntity.status(HttpStatus.OK)
 											.header(HttpHeaders.AUTHORIZATION, "Bearer " + jsonToken)
-											.body(message);
+											.body(user.getUsername());
 
 		}
 		else{
