@@ -9,18 +9,10 @@ const SideBar = () => {
    
   return (
     <div className='sidebarContainer  h-full w-44 hidden sm:hidden md:hidden lg:block lg: flex-col'>
-      <div className='barSelector w-full h-10 mt-6'>
-        <button onClick={() => changeUrl("/homePage")}>Homepage</button>
-      </div>
-      <div className='barSelector w-full h-10'>
-        <button onClick={() => changeUrl("/friendsPage")}>Friends</button>
-      </div>
-      <div className='barSelector w-full h-10'>
-        <button onClick={() => changeUrl("/recommendationPage")}>Recommendations</button>
-      </div>
-      <div className='barSelector w-full h-10 '>
-        <button onClick={() => changeUrl("/profilePage")}>Profile</button>
-      </div>
+      <div className='barSelector w-full h-10 mt-6' onClick={() => changeUrl("/homePage")}>Homepage</div>
+      <div className='barSelector w-full h-10' onClick={() => changeUrl("/friendsPage")}>Friends</div>
+      <div className='barSelector w-full h-10'onClick={() => changeUrl("/recommendationPage")}>Recommendations</div>
+      <div className='barSelector w-full h-10 'onClick={() => changeUrl("/profilePage")}>Profile</div>
     </div>
   )
 }

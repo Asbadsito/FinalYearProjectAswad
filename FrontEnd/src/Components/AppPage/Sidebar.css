@@ -1,5 +1,6 @@
 .sidebarContainer{
     background-color: rgb(40, 46, 59);
+    box-shadow: 2px 0px 1px rgba(0, 0, 0, 0.425);
 }
 
 .absoluteSideBarIcon:hover{
@@ -13,9 +14,10 @@
     color: rgb(219, 219, 219);
     font-size: 14px;
     padding: 10px;
+
 }
 
-.barSelector button:hover{
+.barSelector:hover{
     cursor: pointer;
     color: white;
     transform: translateY(-1px);
