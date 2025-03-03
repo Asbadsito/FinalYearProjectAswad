@@ -6,3 +6,23 @@
     cursor: pointer;
     opacity: 0.7;
 }
+
+.barSelector{
+    font-family: "Inter";
+    font-weight: 200;
+    color: rgb(219, 219, 219);
+    font-size: 14px;
+    padding: 10px;
+}
+
+.barSelector button:hover{
+    cursor: pointer;
+    color: white;
+    transform: translateY(-1px);
+    transition: all 0.3s ease-in-out;
+}
+
+.barSelector button:active{
+    color: rgb(219, 219, 219);
+    transition: all 0.1s ease-in-out;
+}

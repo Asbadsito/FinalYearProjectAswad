@@ -22,25 +22,25 @@ public class LoginController {
 	private final JWTService jwtService;
 
 	@Autowired
-	public LoginController(UserService userService , JWTService jwtService){
+	public LoginController(UserService userService, JWTService jwtService) {
 		this.userService = userService;
 		this.jwtService = jwtService;
 	}
 
 	@PostMapping("/loginUser")
-	public ResponseEntity<String> loginNewUser(@Valid @RequestBody User user){
-		String message = userService.loginUser(user.getUsername() , user.getPassword());
+	public ResponseEntity<String> loginNewUser(@Valid @RequestBody User user) {
+		String message = userService.loginUser(user.getUsername(), user.getPassword());
 
-		if(message.equalsIgnoreCase("success")){
+		if (message.equalsIgnoreCase("success")) {
 			String jsonToken = jwtService.generateToken(user.getUsername());
 			return ResponseEntity.status(HttpStatus.OK)
-											.header(HttpHeaders.AUTHORIZATION, "Bearer " + jsonToken)
-											.body(user.getUsername());
+							.header(HttpHeaders.AUTHORIZATION, "Bearer " + jsonToken)
+							.body(user.getUsername());
 
-		}
-		else{
+		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);
 		}
 	}
 }
+
 

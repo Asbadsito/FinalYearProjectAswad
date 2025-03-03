@@ -13,3 +13,29 @@
   padding: 15px;
   margin-top: 20px;
 }
+
+.absoluteSideBar{
+  transition: transform 0.3s ease-in-out; 
+  transform: translateX(-100%);  
+  will-change: transform;
+  background-color: rgb(40, 46, 59);
+  
+}
+
+.absoluteSideBar.show{
+  transform: translateX(0);  
+   
+}
+
+.closeIcon{
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  left: 5%;
+  top: 1%;
+}
+
+.closeIcon:hover{
+  cursor: pointer;
+  opacity: 0.7;
+}

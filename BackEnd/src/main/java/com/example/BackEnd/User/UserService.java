@@ -33,7 +33,7 @@ public class UserService {
 		return userRepository.findByUsername(username);
 	}
 
-	// This method might not be necessary in the jwt filter, spring security uses UserDetails so i thought of wrapping my user just in case
+	// This method might not be necessary in the jwt filter, spring security uses UserDetails ,  so I thought of wrapping my user just in case
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 		Optional<User> user = userRepository.findByUsername(username);

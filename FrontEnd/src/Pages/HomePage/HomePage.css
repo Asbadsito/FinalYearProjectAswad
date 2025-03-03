@@ -6,4 +6,12 @@
 .testingFont{
     font-family: "Poppins";
     color: rgb(71, 71, 71);
+    margin: 8px;
+}
+
+.testingFont2{
+    font-family: "Inter";
+    color: rgb(72, 72, 72);
+    font-size: 12px;
+    margin: 8px;
 }

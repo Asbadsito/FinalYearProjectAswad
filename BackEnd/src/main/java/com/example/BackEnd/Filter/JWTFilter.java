@@ -46,6 +46,7 @@ protected void doFilterInternal(HttpServletRequest request, HttpServletResponse 
 			return;
 		}
 
+
 		final String authorizationHeader = request.getHeader("Authorization");
 
 		String jwtToken = null;

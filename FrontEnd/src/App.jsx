@@ -6,6 +6,8 @@ import HomePage from "./Pages/HomePage/HomePage"
 import { BrowserRouter as Router, Routes, Route , Navigate} from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import ProfilePage from "./Pages/ProfilePage/ProfilePage"
+import FriendsPage from "./Pages/FriendsPage/FriendsPage"
+import RecommendationPage from "./Pages/RecommendationPage/RecommendationPage"
 
 
 function App() {
@@ -73,6 +75,8 @@ function App() {
               <Route index element={<Navigate to="/homePage" />} />
               <Route path="/homePage" element={<HomePage />} />
               <Route path="/profilePage" element={<ProfilePage />} />
+              <Route path="/friendsPage" element={<FriendsPage />} />
+              <Route path="/recommendationPage" element={<RecommendationPage />} />
             </Route>
           </Routes>
         ) : (
