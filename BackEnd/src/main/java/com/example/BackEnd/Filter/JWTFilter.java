@@ -36,10 +36,10 @@ public class JWTFilter extends OncePerRequestFilter {
 		this.userService = userService;
 	}
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
 		logger.info("If user has reached here the filter has started :");
-		//We continue the filter chain without making use of the JWTfilter for login or registration endpoints
+		//Here it continues the filter chain without making use of the JWTfilter for login or registration endpoints
 		if (request.getServletPath().equals("/registration/registerUser") || request.getServletPath().equals("/login/loginUser")) {
 			filterChain.doFilter(request, response);
 			logger.info("THe user has skipped the jwt filter!");

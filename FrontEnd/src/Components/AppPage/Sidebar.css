@@ -1,3 +1,8 @@
 .sidebarContainer{
-    background-color: rgb(22, 36, 61);
+    background-color: rgb(40, 46, 59);
+}
+
+.absoluteSideBarIcon:hover{
+    cursor: pointer;
+    opacity: 0.7;
 }

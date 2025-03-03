@@ -21,7 +21,7 @@ const Login = ({ setActive , setUserLoggedIn , setLoadingScreen , setGlobalUsern
   const handleSubmit = (e) => {
       e.preventDefault();
 
-      if(!password.trim() || !username.trim()){
+      if(!password.trim() || !username.trim()){  
         showErrorMessage("Username or Password CANNOT be empty. Please try again.")
         return;
       }
