@@ -44,6 +44,7 @@
     color: rgb(219, 219, 219);
     font-size: 14px;
     padding: 10px;
+
 }
 
 .barSelector button:hover{
@@ -56,4 +57,16 @@
 .barSelector button:active{
     color: rgb(219, 219, 219);
     transition: all 0.1s ease-in-out;
+}
+
+.selectedDiv{
+    background-color: #ffbd59;
+    transform: translateY(-2px);
+    color: black;
+    font-family: "Inter";
+    font-weight: 200;
+    font-size: 14px;
+    padding: 10px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
 }
