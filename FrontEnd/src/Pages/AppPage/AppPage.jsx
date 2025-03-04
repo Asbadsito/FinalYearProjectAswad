@@ -22,41 +22,46 @@ const AppPage = ( {globalUsername} ) => {
         </div>
       </div>
 
-      <div className= {`absoluteSideBar lg:hidden w-48 h-full absolute top-0 left-0 z-20 ${showAbsoluteSideBar ? 'show' : ''}`}>
+    <div className= {`absoluteSideBar lg:hidden w-48 h-full absolute top-0 left-0 z-20 ${showAbsoluteSideBar ? 'show' : ''}`}>
         <div className="content w-full h-full flex-col relative">
           <div className='pl-40 pt-2'>
             <i class="closeIcon fa-solid fa-xmark" onClick={ () => setShowAbsoluteSideBar(false)}></i>
           </div>
           <div className='w-full h-auto '>
-            <div 
-        className={` w-full h-10 mt-4 ${pageSelected === "home" ? "selectedDiv" : "barSelector"}`}
+      
+      <div 
+        className={` w-full h-10 mt-4 flex items-center ${pageSelected === "home" ? "selectedDiv" : "barSelector"}`}
         onClick={() => { setPageSelected("home"); changeUrl("/homePage"); }}>
-          Homepage
+          <i class="fa-solid fa-house mr-1"></i>
+          <div className='mt-[1px] ml-[2px]'>Home</div>
       </div>
       
       <div 
-        className={`w-full h-10 ${pageSelected === "friends" ? "selectedDiv" : "barSelector"}`}
+        className={`w-full h-10 flex items-center ${pageSelected === "friends" ? "selectedDiv" : "barSelector"}`}
         onClick={() => {changeUrl("/friendsPage") ; setPageSelected("friends")}}>
-          Friends
+          <i class="fa-solid fa-user-group mr-1"></i>
+          <div className='mt-[1px] ml-[2px]'>Friends</div>
       </div>
 
       <div 
-        className={`w-full h-10 ${pageSelected === "recommendation" ? "selectedDiv" : "barSelector"}`}
+        className={`w-full h-10 flex items-center ${pageSelected === "recommendation" ? "selectedDiv" : "barSelector"}`}
         onClick={() => {changeUrl("/recommendationPage") ; setPageSelected("recommendation")}}>
-          Recommendations
+          <i class="fa-solid fa-lightbulb mr-1 text-[19px]"></i> 
+          <div className='mt-[1px] ml-[2px]'>Recommendations</div>
       </div>
 
       <div 
-        className={`w-full h-10 ${pageSelected === "profile" ? "selectedDiv" : "barSelector"}`}
+        className={`w-full h-10 flex items-center ${pageSelected === "profile" ? "selectedDiv" : "barSelector"}`}
         onClick={() => {changeUrl("/profilePage") ; setPageSelected("profile")}}>
-          Profile
+          <i class="fa-solid fa-user mr-1 "></i>
+          <div className='mt-[1px] ml-[2px]'>Profile</div>
       </div>
-          </div>
-        </div>
       </div>
+    </div>
+    </div>
       
        
-    </div>
+  </div>
   )
 }
 
