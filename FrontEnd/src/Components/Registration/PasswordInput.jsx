@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 const PasswordInput = ({ password, setPassword , passwordLabel}) => {
-  const [showPassword, setShowPassword] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);

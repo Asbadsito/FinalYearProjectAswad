@@ -18,7 +18,7 @@ public class UserService {
 	private final PasswordEncoder passwordEncoder;
 
 	private final PasswordUtil passwordUtil;
-	private final int USER_ID_LENGTH = 5;
+	private final int USER_ID_LENGTH = 7;
 	private final String ALPHA_NUMERICAL_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 	// More fields as needed

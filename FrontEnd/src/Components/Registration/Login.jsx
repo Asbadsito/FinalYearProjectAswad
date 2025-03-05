@@ -84,7 +84,7 @@ const Login = ({ setActive , setUserLoggedIn , setLoadingScreen , setGlobalUsern
           setUserLoggedIn(true);
           setLoadingScreen(false);  
            
-        }, 2400); 
+        }, 2000); 
           
         } 
         else {
