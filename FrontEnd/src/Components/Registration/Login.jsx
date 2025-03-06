@@ -4,6 +4,7 @@ import PasswordInput from './PasswordInput'
 import UserInput from './UserInput'
 import { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 const Login = ({ setActive , setUserLoggedIn , setLoadingScreen , setGlobalUsername}) => {
 
@@ -12,6 +13,7 @@ const Login = ({ setActive , setUserLoggedIn , setLoadingScreen , setGlobalUsern
   const [loading , setLoading] = useState(false);
   const [errorMessage , setErrorMessage] = useState("");
   const [fadeError, setFadeError] = useState(false); 
+  const changeUrl = useNavigate();
 
 
   const handleRegisterSpan = () => {
@@ -74,6 +76,7 @@ const Login = ({ setActive , setUserLoggedIn , setLoadingScreen , setGlobalUsern
           localStorage.setItem("username" , response.data);
           setGlobalUsername(response.data);
           setLoadingScreen(true)
+          changeUrl("/homePage")
           setTimeout(() => {
             document.querySelector('.loading-screen').classList.add('hidden');
             

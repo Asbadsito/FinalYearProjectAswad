@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class JWTFilter extends OncePerRequestFilter {
@@ -39,6 +40,8 @@ public class JWTFilter extends OncePerRequestFilter {
 protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
 		logger.info("If user has reached here the filter has started :");
+		logger.info("JWTFilter invoked for path: " + request.getRequestURI());
+
 		//Here it continues the filter chain without making use of the JWTfilter for login or registration endpoints
 		if (request.getServletPath().equals("/registration/registerUser") || request.getServletPath().equals("/login/loginUser")) {
 			filterChain.doFilter(request, response);
@@ -59,15 +62,18 @@ protected void doFilterInternal(HttpServletRequest request, HttpServletResponse 
 		if (jwtToken != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
 			String username = null;
+			List<String> roles = null;
 
 			try {
 				username = jwtService.extractUsername(jwtToken);
+				roles = jwtService.extractClaim(jwtToken, claims -> (List<String>) claims.get("roles"));
+
+				logger.info("roles in here " + roles);
 				logger.info("2.Username extracted : " + username);
-			}
-			catch(ExpiredJwtException e){
+				logger.info("roles in here " + roles);
+			} catch (ExpiredJwtException e) {
 				logger.info("JWT token has expired: " + e.getMessage());
-			}
-			catch (Exception e){
+			} catch (Exception e) {
 				logger.info("Failed to extract username");
 			}
 
@@ -83,6 +89,8 @@ protected void doFilterInternal(HttpServletRequest request, HttpServletResponse 
 					authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 					SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+					logger.info("Authentication token set in SecurityContext: " + authenticationToken.getName());
+					logger.info("SecurityContext Authentication: " + SecurityContextHolder.getContext().getAuthentication());
 					logger.info("4.Token was validated and user was authenticated");
 				}
 				else{

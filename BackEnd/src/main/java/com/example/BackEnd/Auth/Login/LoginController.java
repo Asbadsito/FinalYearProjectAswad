@@ -13,6 +13,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/login")
@@ -32,7 +35,11 @@ public class LoginController {
 		String message = userService.loginUser(user.getUsername(), user.getPassword());
 
 		if (message.equalsIgnoreCase("success")) {
-			String jsonToken = jwtService.generateToken(user.getUsername());
+
+			List<String> roles = Arrays.asList(user.getRole());  // Convert the role into a List (if it's just one role)
+
+				// Generate the token with roles
+			String jsonToken = jwtService.generateToken(user.getUsername(), roles);
 			return ResponseEntity.status(HttpStatus.OK)
 							.header(HttpHeaders.AUTHORIZATION, "Bearer " + jsonToken)
 							.body(user.getUsername());

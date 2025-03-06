@@ -1,5 +1,6 @@
 package com.example.BackEnd.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -20,15 +21,25 @@ public class User {
 
 	@NotNull(message = "Password cannot be null")
 	@Size(min = 8, message = "Password must be at least 8 characters")
+	@JsonIgnore
 	private String password;
+
+	@Column(nullable = false)
+	private String role;
+
 
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
+		this.role = "ROLE_USER";
 	}
 
 	public User(){
+		this.role = "ROLE_USER";
+	}
 
+	public String getRole() {
+		return role;
 	}
 
 	public String getId() {

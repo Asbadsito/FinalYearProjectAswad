@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +20,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import java.util.Arrays;
 
 @Configuration
+@EnableMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
 public class SecurityConfig {
 
@@ -34,7 +37,8 @@ public class SecurityConfig {
 		.csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests(authorize -> authorize
 					.requestMatchers("/","/registration/registerUser", "/login/loginUser").permitAll()
-					.anyRequest().authenticated()
+						.requestMatchers("/workout/**").hasRole("USER")
+					.anyRequest().permitAll()
     )
 		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
 		.formLogin(formLogin -> formLogin.disable());

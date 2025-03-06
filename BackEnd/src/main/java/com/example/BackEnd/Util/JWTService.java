@@ -13,6 +13,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import java.util.function.Function;
 
 @Service
@@ -23,8 +24,9 @@ public class JWTService {
 
 	private static final Logger logger = LoggerFactory.getLogger(JWTService.class);
 
-	public String generateToken(String userName) {
+	public String generateToken(String userName, List<String> roles) {
 		Map<String, Object> claims = new HashMap<>();
+		claims.put("roles", roles);
 		return createToken(claims, userName);
 	}
 
@@ -33,7 +35,7 @@ public class JWTService {
 						.claims(claims)
 						.subject(userName)
 						.issuedAt(new Date())
-						.expiration(new Date(System.currentTimeMillis() +  10 * 60 * 60 * 1000))
+						.expiration(new Date(System.currentTimeMillis() + 10 * 60 * 60 * 1000))
 						.signWith(getSignKey(), Jwts.SIG.HS512)
 						.compact();
 	}
@@ -41,7 +43,6 @@ public class JWTService {
 	private SecretKey getSignKey() {
 		return new SecretKeySpec(secret.getBytes(), "HmacSHA512");
 	}
-
 	public String extractUsername(String token) {
 		return extractClaim(token, Claims::getSubject);
 	}
@@ -54,7 +55,6 @@ public class JWTService {
 		final Claims claims = getAllClaims(token);
 		return claimsResolver.apply(claims);
 	}
-
 	private Claims getAllClaims(String token) {
 		return Jwts.parser()
 						.verifyWith(getSignKey())
