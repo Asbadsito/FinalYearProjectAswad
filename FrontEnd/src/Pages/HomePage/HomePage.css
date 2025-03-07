@@ -15,3 +15,61 @@
     font-size: 12px;
     margin: 8px;
 }
+
+.workouts-header{
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.466);
+    background-color: rgb(26, 52, 94);
+}
+
+.workouts-title{
+    display: flex;
+    align-items: center;
+    font-family: "Poppins";
+    color: rgb(255, 255, 255);
+    font-weight: 300;
+}
+
+.workouts-search{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    border: none;
+}
+
+.workout-search:focus{
+    outline: none; 
+    border: none;
+}
+
+.workout-search:active{
+    outline: none;
+    border: none;
+}
+
+@media (max-width: 640px) {  
+    .workoutSearchInput::placeholder {
+      font-size: 0.5rem;
+    }
+  }
+
+.workoutSearchInput{
+    border-radius: 4px;
+    background-color: rgba(100, 111, 133, 0.678);
+    color: white;
+}
+
+.createWorkoutButton {
+    border: rgba(255, 255, 255, 0.836) 1px solid;
+    color: white;
+    font-family: "Poppins";
+    border-radius: 2px;
+}
+
+.createWorkoutButton:hover{
+    transition: all 0.5s ease;
+    color: black;
+    background-color: #ffbd59 ;
+    border-color: #ffbd59;
+    opacity: 0.95;
+}

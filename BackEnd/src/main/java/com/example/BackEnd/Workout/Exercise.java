@@ -52,7 +52,7 @@ public class Exercise {
 	}
 
 	public int getDuration() {
-		return duration;
+		return duration == null ? 0 : duration;
 	}
 
 	public void setDuration(Integer duration) {

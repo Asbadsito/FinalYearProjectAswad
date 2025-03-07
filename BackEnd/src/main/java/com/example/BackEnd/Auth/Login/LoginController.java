@@ -36,9 +36,8 @@ public class LoginController {
 
 		if (message.equalsIgnoreCase("success")) {
 
-			List<String> roles = Arrays.asList(user.getRole());  // Convert the role into a List (if it's just one role)
+			List<String> roles = Arrays.asList(user.getRole());
 
-				// Generate the token with roles
 			String jsonToken = jwtService.generateToken(user.getUsername(), roles);
 			return ResponseEntity.status(HttpStatus.OK)
 							.header(HttpHeaders.AUTHORIZATION, "Bearer " + jsonToken)

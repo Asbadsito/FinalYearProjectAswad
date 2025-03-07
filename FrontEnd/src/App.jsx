@@ -66,7 +66,7 @@ function App() {
       <div className="app_container w-full h-full relative">
         {loadingScreen ? (
           <div className="loading-screen flex flex-col justify-center">
-            <img src="/gifs/loadingGif2.gif" className="w-36 h-auto"></img>
+            <img src="/gifs/loadingGif3.gif" className="w-36 h-auto"></img>
             <div className="text-black text-[20px] animate-pulse"> Loading... </div>
           </div>
         ) : isUserLoggedIn ? (

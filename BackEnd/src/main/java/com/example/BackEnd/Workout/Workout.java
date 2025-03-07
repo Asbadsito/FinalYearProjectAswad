@@ -2,6 +2,9 @@ package com.example.BackEnd.Workout;
 
 
 import com.example.BackEnd.User.User;
+import com.example.BackEnd.User.UserDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -52,9 +55,16 @@ public class Workout {
 		this.id = id;
 	}
 
+	@JsonIgnore
 	public User getUser() {
 		return user;
 	}
+
+	@JsonProperty("user")
+	public UserDTO getUserDTO(){
+		return new UserDTO(this.user.getUsername() , this.user.getId());
+	}
+
 
 	public void setUser(User user) {
 		this.user = user;

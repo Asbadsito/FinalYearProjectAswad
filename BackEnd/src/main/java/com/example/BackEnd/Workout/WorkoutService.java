@@ -45,8 +45,6 @@ public class WorkoutService {
 			try{
 				Optional<User> user1 = userRepository.findById(userId);
 				if(user1.isPresent()) {
-					// set the workout user_id before saving to the userId
-
 					workout.setUser(user1.get());
 					return workoutRepository.save(workout);
 				}
@@ -96,7 +94,8 @@ public class WorkoutService {
 
 	}
 	public boolean checkIfWorkoutIsValid(Workout workout) {
-		if (workout == null || workout.getWorkoutName() == null || workout.getListOfExcercises().size() <= 1) {
+		if (workout == null || workout.getWorkoutName() == null || workout.getListOfExcercises().size() < 1) {
+			logger.info("Workout was null, its name was null or the list of exercises was too small");
 			return false;
 		}
 		return true;
