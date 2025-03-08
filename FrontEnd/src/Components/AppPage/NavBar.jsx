@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './NavBar.css'
 
-const NavBar = ( {globalUsername , setShowAbsoluteSideBar} ) => {
+const NavBar = ( {globalUsername , globalId ,  setShowAbsoluteSideBar} ) => {
 
   useEffect(() => {
     console.log(globalUsername)
@@ -15,7 +15,8 @@ const NavBar = ( {globalUsername , setShowAbsoluteSideBar} ) => {
           <img src='/images/logo_dc.png' className='w-20 h-auto mr-2'></img>
           <div className='text-xs'>V 0.1.1</div>
         </div>
-        <div className='flex w-28 h-auto items-center'>
+        <div className='flex w-auto h-auto items-center'>
+          <p className='id text-[10px] mr-4'>{globalId}</p>
           <i class="accountIcon fa-solid fa-circle-user"></i>
           <p className='username ml-3'> {globalUsername}</p>
         </div>

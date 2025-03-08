@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Login from '../../Components/Registration/Login';
 import Register from '../../Components/Registration/Register';
 
-const AuthPage = ({setUserLoggedIn , setLoadingScreen , setGlobalUsername}) => {
+const AuthPage = ({setUserLoggedIn , setLoadingScreen , setGlobalUsername , setGlobalId}) => {
   const [active, setActive] = useState("signin");
 
   return (
@@ -60,7 +60,7 @@ const AuthPage = ({setUserLoggedIn , setLoadingScreen , setGlobalUsername}) => {
           </div>
 
           <div className="registrationInputContainer w-full flex-1 mt-1 flex flex-col pt-2">
-            {active === "signin" ? <Login setActive={setActive} setUserLoggedIn={setUserLoggedIn} setLoadingScreen={setLoadingScreen} setGlobalUsername={setGlobalUsername}/> : <Register setActive={setActive} /> }
+            {active === "signin" ? <Login setActive={setActive} setUserLoggedIn={setUserLoggedIn} setLoadingScreen={setLoadingScreen} setGlobalUsername={setGlobalUsername} setGlobalId={setGlobalId}/> : <Register setActive={setActive} /> }
           </div>
         </div>
 

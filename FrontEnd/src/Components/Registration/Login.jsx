@@ -6,7 +6,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-const Login = ({ setActive , setUserLoggedIn , setLoadingScreen , setGlobalUsername}) => {
+const Login = ({ setActive , setUserLoggedIn , setLoadingScreen , setGlobalUsername , setGlobalId}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +36,7 @@ const Login = ({ setActive , setUserLoggedIn , setLoadingScreen , setGlobalUsern
       setErrorMessage("");
       setLoading(true);
 
-      // Make the login request dont forget
+      // Make the login request dont forget lol
       sendLoginRequest();
   }
 
@@ -52,7 +52,6 @@ const Login = ({ setActive , setUserLoggedIn , setLoadingScreen , setGlobalUsern
 
   const sendLoginRequest = async () => {
 
-    // WRite login request in here 
       const url = "http://localhost:8080/login/loginUser"
       const User = {
         username : username,
@@ -73,8 +72,10 @@ const Login = ({ setActive , setUserLoggedIn , setLoadingScreen , setGlobalUsern
         if (token) {
           const cleanedToken = token.replace("Bearer ", "").trim();  
           localStorage.setItem("authToken", cleanedToken);
-          localStorage.setItem("username" , response.data);
-          setGlobalUsername(response.data);
+          localStorage.setItem("username" , response.data.username);
+          localStorage.setItem("userId" , response.data.id);
+          setGlobalUsername(response.data.username);
+          setGlobalId(response.data.id);
           setLoadingScreen(true)
           changeUrl("/homePage")
           setTimeout(() => {
@@ -99,7 +100,7 @@ const Login = ({ setActive , setUserLoggedIn , setLoadingScreen , setGlobalUsern
       }
       catch(error){
         setLoading(false)
-        showErrorMessage(((error.response ? error.response.data : error.message)))
+        showErrorMessage(((error.response ? error.response.data.username : error.message)))
         setPassword("");
         setUsername("");
       }

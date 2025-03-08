@@ -6,7 +6,7 @@ import SideBar from '../../Components/AppPage/SideBar'
 import { useNavigate } from "react-router-dom";
 
 
-const AppPage = ( {globalUsername} ) => {
+const AppPage = ( {globalUsername , globalId} ) => {
 
   const[showAbsoluteSideBar , setShowAbsoluteSideBar] = useState(false); 
   const[pageSelected , setPageSelected] = useState("home");
@@ -14,7 +14,7 @@ const AppPage = ( {globalUsername} ) => {
 
   return (
     <div className='w-full h-full relative'>
-      <NavBar className="navBar" globalUsername={globalUsername} setShowAbsoluteSideBar={setShowAbsoluteSideBar}/>
+      <NavBar className="navBar" globalUsername={globalUsername} globalId={globalId} setShowAbsoluteSideBar={setShowAbsoluteSideBar}/>
       <div className="appPagesContainer flex flex-row">
         <SideBar />
         <div className="appPagesContentContainer">

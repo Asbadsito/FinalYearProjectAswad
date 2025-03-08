@@ -68,7 +68,7 @@ public class WorkoutService {
 		}
 		else{
 			workout.get().setWorkoutName(updatedWorkout.getWorkoutName());
-			workout.get().setListOfExcercises(updatedWorkout.getListOfExcercises());
+			workout.get().setListOfExercises(updatedWorkout.getListOfExercises());
 
 			workoutRepository.save(workout.get());
 			return "success";
@@ -94,8 +94,16 @@ public class WorkoutService {
 
 	}
 	public boolean checkIfWorkoutIsValid(Workout workout) {
-		if (workout == null || workout.getWorkoutName() == null || workout.getListOfExcercises().size() < 1) {
+		if (workout == null ) {
 			logger.info("Workout was null, its name was null or the list of exercises was too small");
+			return false;
+		}
+		if(workout.getWorkoutName() == null){
+			logger.info("Name was null");
+			return false;
+		}
+		if(workout.getListOfExercises() == null || workout.getListOfExercises().isEmpty()){
+			logger.info("List of exercises was null or empty");
 			return false;
 		}
 		return true;

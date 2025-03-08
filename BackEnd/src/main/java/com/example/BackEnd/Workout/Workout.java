@@ -32,6 +32,8 @@ public class Workout {
 	@Size(min = 1 , max = 30)
 	private String workoutName;
 
+	private String type;
+
 	@ElementCollection
 	@CollectionTable(name = "workout_exercises", joinColumns = @JoinColumn(name = "workout_id"))
 	private List<Exercise> listOfExercises = new ArrayList<>();
@@ -53,6 +55,14 @@ public class Workout {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@JsonIgnore
@@ -86,11 +96,11 @@ public class Workout {
 		this.workoutName = workoutName;
 	}
 
-	public List<Exercise> getListOfExcercises() {
+	public List<Exercise> getListOfExercises() {
 		return listOfExercises;
 	}
 
-	public void setListOfExcercises(List<Exercise> listOfExercises) {
+	public void setListOfExercises(List<Exercise> listOfExercises) {
 		this.listOfExercises = listOfExercises;
 	}
 }

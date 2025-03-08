@@ -18,9 +18,9 @@ public class Exercise {
 		this.name = name;
 		this.excerciseType = excerciseType;
 		this.img_URL = img_URL;
-		this.duration = duration;
-		this.sets = sets;
-		this.reps = reps;
+		this.duration = (duration != null ? duration : 0);
+		this.sets = (sets != null ? sets : 0);
+		this.reps = (reps != null ? reps : 0);
 	}
 
 	public Exercise() {

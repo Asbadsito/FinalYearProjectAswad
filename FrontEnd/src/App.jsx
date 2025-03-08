@@ -15,6 +15,7 @@ function App() {
   const[isUserLoggedIn , setUserLoggedIn] = useState(false);
   const[loadingScreen , setLoadingScreen] = useState(false);
   const[globalUsername , setGlobalUsername] = useState(localStorage.getItem("username") || "");
+  const[globalId , setGlobalId] = useState(localStorage.getItem("userId" || ""))
 
   useEffect(() => {
     setUserLoggedIn(true)
@@ -71,7 +72,7 @@ function App() {
           </div>
         ) : isUserLoggedIn ? (
           <Routes>
-            <Route path="/" element={<AppPage globalUsername={globalUsername}/>}>
+            <Route path="/" element={<AppPage globalUsername={globalUsername} globalId={globalId}/>}>
               <Route index element={<Navigate to="/homePage" />} />
               <Route path="/homePage" element={<HomePage />} />
               <Route path="/profilePage" element={<ProfilePage />} />
@@ -80,7 +81,7 @@ function App() {
             </Route>
           </Routes>
         ) : (
-          <AuthPage setUserLoggedIn={setUserLoggedIn} setLoadingScreen={setLoadingScreen} setGlobalUsername={setGlobalUsername}/>
+          <AuthPage setUserLoggedIn={setUserLoggedIn} setLoadingScreen={setLoadingScreen} setGlobalUsername={setGlobalUsername} setGlobalId={setGlobalId}/>
         )}
       </div>
 

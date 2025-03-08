@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Homepage.css'
+import WorkoutSlider from '../../Components/HomePage/Workouts/WorkoutSlider'
 
 const HomePage = () => {
+
   return (
     <>
       <div className='w-full h-full grid grid-cols-1 lg:grid lg:grid-cols-5 lg:grid-rows-6 gap-4'>
         <div className='workout-container
         lg:col-span-3 content-container w-full rounded-lg sm:w-[80%] md:w-[80%] lg:w-[100%] mx-auto lg:row-span-2 h-44 lg:h-full'>
-          <div className='w-full h-full flex'>
+          <div className='w-full h-full flex flex-col'>
             <div className='workouts-header w-full h-[25%] flex rounded-t-lg'>
               <div className='workouts-title pl-4 w-[20%] h-full text-[14px] sm:text-[12px] md:text-[18px]'>Workouts:</div>
               <div className='workouts-search w-[50%] h-full'>
@@ -26,6 +28,9 @@ const HomePage = () => {
                 text-[8px] sm:text-[8px] md:text-[12px] lg:text-[13px]'>Create Workout</button>
               </div>
             </div>
+            {/* End of workout header/}
+            {/* Here we call the workout slider with all the workouts fetched */}
+              <WorkoutSlider />
           </div>
         </div>
 
