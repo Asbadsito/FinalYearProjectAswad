@@ -1,3 +1,21 @@
 .workoutComponentContainer{
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.592);
 }
+
+.workoutName{
+    font-family: "Poppins";
+    color: rgb(19, 20, 77);
+    font-weight: 400;
+}
+
+.viewDetails{
+    border: 1px solid black;
+    color: black;
+    background: white;
+}
+
+.viewDetails:hover{
+    background-color: rgb(26, 52, 94);
+    color: white;
+    transition: all 0.5s ease;
+}

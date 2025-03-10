@@ -1,8 +1,9 @@
 import React from 'react'
+import './FriendsPage.css'
 
 const FriendsPage = () => {
   return (
-    <div>Friends</div>
+    <div className='content-container w-full h-full rounded-lg'></div>
   )
 }
 

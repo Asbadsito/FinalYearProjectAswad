@@ -39,3 +39,13 @@
     transition: all 0.3s ease-in-out;
     cursor: pointer;
 }
+
+.settingsIcon{
+     color: rgb(219, 219, 219);
+}
+
+.settingsIcon:hover{
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease-in-out;
+}

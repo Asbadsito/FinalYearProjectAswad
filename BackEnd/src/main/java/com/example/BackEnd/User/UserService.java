@@ -21,7 +21,7 @@ public class UserService {
 	private final int USER_ID_LENGTH = 7;
 	private final String ALPHA_NUMERICAL_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-	// More fields as needed
+	// WIll probably add more fields as needed 
 
 	@Autowired
 	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PasswordUtil passwordUtil){

@@ -73,3 +73,43 @@
     border-color: #ffbd59;
     opacity: 0.95;
 }
+
+.close{
+    color: black;
+}
+
+.close:hover{
+    color: rgb(156, 8, 8);
+    cursor: pointer;
+    opacity: 0.6;
+}
+
+.workoutTitle{
+    color: black;
+    font-family: "Inter";
+    font-weight: 500;
+}
+
+.exerciseContainer{
+    background-color: rgb(244, 243, 243);
+}
+
+.workoutExercise{
+    border: 0.2px solid rgba(0, 0, 0, 0.339);
+    background-color: rgb(242, 242, 242);
+}
+
+.diets-header{
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.466);
+    background-color: rgb(26, 84, 94);
+}
+
+.sharing-header{
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.466);
+    background-color: #ffbd59;
+}
+
+.healthScore-header{
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.466);
+    background-color: rgb(18, 58, 37);
+}

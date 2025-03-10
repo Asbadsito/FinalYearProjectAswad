@@ -16,6 +16,7 @@ function App() {
   const[loadingScreen , setLoadingScreen] = useState(false);
   const[globalUsername , setGlobalUsername] = useState(localStorage.getItem("username") || "");
   const[globalId , setGlobalId] = useState(localStorage.getItem("userId" || ""))
+  const[overlay , setOverlay] = useState(false);
 
   useEffect(() => {
     setUserLoggedIn(true)
@@ -72,9 +73,9 @@ function App() {
           </div>
         ) : isUserLoggedIn ? (
           <Routes>
-            <Route path="/" element={<AppPage globalUsername={globalUsername} globalId={globalId}/>}>
+            <Route path="/" element={<AppPage globalUsername={globalUsername} globalId={globalId} overlay={overlay}/>}>
               <Route index element={<Navigate to="/homePage" />} />
-              <Route path="/homePage" element={<HomePage />} />
+              <Route path="/homePage" element={<HomePage setOverlay={setOverlay}/>} />
               <Route path="/profilePage" element={<ProfilePage />} />
               <Route path="/friendsPage" element={<FriendsPage />} />
               <Route path="/recommendationPage" element={<RecommendationPage />} />
@@ -83,9 +84,11 @@ function App() {
         ) : (
           <AuthPage setUserLoggedIn={setUserLoggedIn} setLoadingScreen={setLoadingScreen} setGlobalUsername={setGlobalUsername} setGlobalId={setGlobalId}/>
         )}
+
       </div>
 
     </Router>
+
     
   )
 }

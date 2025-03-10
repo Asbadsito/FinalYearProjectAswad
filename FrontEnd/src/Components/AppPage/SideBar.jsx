@@ -2,13 +2,12 @@ import React, { useState } from 'react'
 import './Sidebar.css'
 import { useNavigate } from "react-router-dom";
 
-const SideBar = () => {
+const SideBar = ( {setPageSelected , pageSelected} ) => {
 
-  const[pageSelected , setPageSelected] = useState("home");
   const changeUrl = useNavigate();
    
   return (
-    <div className='sidebarContainer  h-full w-44 hidden sm:hidden md:hidden lg:block lg: flex-col'>
+    <div className='sidebarContainer  h-full w-44 hidden sm:hidden md:hidden lg:block lg: flex-col relative'>
       <div 
         className={` w-full h-10 mt-4 flex items-center ${pageSelected === "home" ? "selectedDiv" : "barSelector"}`}
         onClick={() => { setPageSelected("home"); changeUrl("/homePage"); }}>
@@ -36,6 +35,10 @@ const SideBar = () => {
           <i class="fa-solid fa-user mr-1 "></i>
           <div className='mt-[1px] ml-[2px]'>Profile</div>
       </div>
+
+      <i class="settingsIcon absolute bottom-3 left-2 fa-solid fa-gear"></i>
+      <i class="settingsIcon fa-solid fa-question absolute bottom-3 right-5"></i>
+
     </div>
   )
 }

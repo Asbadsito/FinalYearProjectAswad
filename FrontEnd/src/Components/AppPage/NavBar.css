@@ -36,3 +36,12 @@
   color: rgb(207, 207, 207);
   margin-top: 3px;
 }
+
+.id{
+  color: rgb(255, 190, 12);
+}
+
+.profileAccess:hover{
+  opacity: 0.8;
+  cursor: pointer;
+}

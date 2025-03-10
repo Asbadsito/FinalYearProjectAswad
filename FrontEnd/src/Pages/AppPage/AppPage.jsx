@@ -6,17 +6,19 @@ import SideBar from '../../Components/AppPage/SideBar'
 import { useNavigate } from "react-router-dom";
 
 
-const AppPage = ( {globalUsername , globalId} ) => {
+const AppPage = ( {globalUsername , globalId , overlay} ) => {
 
   const[showAbsoluteSideBar , setShowAbsoluteSideBar] = useState(false); 
   const[pageSelected , setPageSelected] = useState("home");
   const changeUrl = useNavigate();
+  
 
   return (
     <div className='w-full h-full relative'>
-      <NavBar className="navBar" globalUsername={globalUsername} globalId={globalId} setShowAbsoluteSideBar={setShowAbsoluteSideBar}/>
+      {overlay && (<div className='overlay w-full h-full absolute z-40'></div>)}
+      <NavBar className="navBar" globalUsername={globalUsername} globalId={globalId} setShowAbsoluteSideBar={setShowAbsoluteSideBar} setPageSelected={setPageSelected}/>
       <div className="appPagesContainer flex flex-row">
-        <SideBar />
+        <SideBar setPageSelected={setPageSelected} pageSelected={pageSelected}/>
         <div className="appPagesContentContainer">
           <Outlet />
         </div>

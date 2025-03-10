@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import './NavBar.css'
+import { Navigate, useNavigate } from 'react-router-dom'
 
-const NavBar = ( {globalUsername , globalId ,  setShowAbsoluteSideBar} ) => {
+const NavBar = ( {globalUsername , globalId ,  setShowAbsoluteSideBar , setPageSelected} ) => {
 
   useEffect(() => {
     console.log(globalUsername)
   },[])
 
+  const changeUrl = useNavigate();
 
   return (
     <div className='navbar w-full h-14 flex justify-between items-center'>
@@ -15,10 +17,12 @@ const NavBar = ( {globalUsername , globalId ,  setShowAbsoluteSideBar} ) => {
           <img src='/images/logo_dc.png' className='w-20 h-auto mr-2'></img>
           <div className='text-xs'>V 0.1.1</div>
         </div>
-        <div className='flex w-auto h-auto items-center'>
+        <div className='flex w-36 h-auto items-center mr-6'>
           <p className='id text-[10px] mr-4'>{globalId}</p>
-          <i class="accountIcon fa-solid fa-circle-user"></i>
-          <p className='username ml-3'> {globalUsername}</p>
+          <div className='profileAccess flex mr-7' onClick={() => {changeUrl('/profilePage') ; setPageSelected("profile")}}>
+            <i class="accountIcon fa-solid fa-circle-user"></i>
+            <p className='username ml-3'> {globalUsername}</p>
+          </div>
         </div>
     </div>
   )

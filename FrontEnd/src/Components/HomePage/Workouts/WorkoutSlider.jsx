@@ -11,7 +11,7 @@ import { replace } from 'react-router-dom';
 import axios from 'axios';
 import { u } from 'framer-motion/client';
 
-const WorkoutSlider = () => {
+const WorkoutSlider = ( {setOverlay , setShowWorkoutDetails , setSelectedWorkout} ) => {
 
   const[reload , setReload] = useState(false);
   const[workoutInfo , setWorkoutInfo] = useState([])
@@ -19,8 +19,14 @@ const WorkoutSlider = () => {
   useEffect (() => {
 
     getAllWorkouts();
-
+    
   } , [reload])
+
+  useEffect(() => {
+  if (workoutInfo.length > 0) {
+    console.log("Updated Workouts State:", JSON.stringify(workoutInfo[0], null, 2));
+  }
+  }, [workoutInfo]); 
 
   const getAllWorkouts = async () => {
     
@@ -48,7 +54,7 @@ const WorkoutSlider = () => {
                 },
         })
 
-        setWorkoutInfo(JSON.stringify(response.data, null , 2));
+        setWorkoutInfo(response.data);
 
     }
     catch(error){
@@ -57,11 +63,8 @@ const WorkoutSlider = () => {
 
   }
 
-  useEffect(() => {
-    console.log("Updated workouts state:", workoutInfo);
-  }, [workoutInfo]);
+  const workoutToDisplay = workoutInfo.length > 0 ? workoutInfo[0] : null;
 
-  
   return (
     <div className='workoutSliderContainer w-full h-[75%] py-2 flex items-center justify-center rounded-b-lg relative'>
       <div className='absolute left-2 top-1/2 transform -translate-y-1/2 z-20 swiper-button-prev after:!text-xl after:!text-black'></div>
@@ -94,34 +97,20 @@ const WorkoutSlider = () => {
           loop={false}
           className='h-full w-full relative'
         >
-          <SwiperSlide className="flex items-center justify-center">
-            <WorkoutComponent />
-          </SwiperSlide>
-
-          <SwiperSlide className="flex items-center justify-center">
-            <WorkoutComponent />
-          </SwiperSlide>
-
-          <SwiperSlide className="flex items-center justify-center">
-            <WorkoutComponent />
-          </SwiperSlide>
-
-          <SwiperSlide className="flex items-center justify-center">
-            <WorkoutComponent />
-          </SwiperSlide>
-
-          <SwiperSlide className="flex items-center justify-center">
-            <WorkoutComponent />
-          </SwiperSlide>
-
-          <SwiperSlide className="flex items-center justify-center">
-            <WorkoutComponent />
-          </SwiperSlide>
-          
+             {workoutInfo.length > 0 ? (
+              workoutInfo.map((workout, index) => (
+                <SwiperSlide key={index} className="flex items-center justify-center">
+                  <WorkoutComponent workout={workout} setOverlay={setOverlay} setShowWorkoutDetails={setShowWorkoutDetails} setSelectedWorkout={setSelectedWorkout}/>
+                </SwiperSlide>
+              ))
+            ) : (
+              <div className="text-center">THERE ARE NO WORKOUTS IN HERE</div>
+            )}
+        
         </Swiper>
       </div>
       
-      {/* Next arrow positioned absolutely outside the swiper */}
+      {/* Arrow psoition*/}
       <div className='absolute right-2 top-1/2 transform -translate-y-1/2 z-20 swiper-button-next after:!text-xl after:!text-black'></div>
     </div>
   );
