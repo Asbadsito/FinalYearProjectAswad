@@ -54,7 +54,7 @@ const WorkoutSlider = ( {setOverlay , setShowWorkoutDetails , setSelectedWorkout
                 },
         })
 
-        setWorkoutInfo(response.data);
+        setWorkoutInfo(response.data)
 
     }
     catch(error){
@@ -62,6 +62,7 @@ const WorkoutSlider = ( {setOverlay , setShowWorkoutDetails , setSelectedWorkout
     }
 
   }
+
 
   const workoutToDisplay = workoutInfo.length > 0 ? workoutInfo[0] : null;
 

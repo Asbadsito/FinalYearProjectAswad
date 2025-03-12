@@ -11,6 +11,7 @@ public class PasswordUtil {
 
 	private final PasswordEncoder passwordEncoder;
 
+	@Autowired
 	public PasswordUtil(PasswordEncoder passwordEncoder) {
 		this.passwordEncoder = passwordEncoder;
 	}

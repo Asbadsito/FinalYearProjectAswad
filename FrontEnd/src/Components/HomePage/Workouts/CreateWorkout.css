@@ -17,6 +17,23 @@
     font-size: 16px;
 }
 
-.selectionBox{
+.selectionBox:active{
+    outline: none;
+}
 
+.addExerciseButton{
+    border: none;
+    background-color: green;
+    color: white;
+}
+
+.addExerciseButton:hover{
+    cursor: pointer;
+    background-color: rgb(255, 190, 12) ;
+    transition: all 0.3s ease-in-out;
+}
+
+.spanExName{
+    font-family: "Poppins";
+    font-weight: 500;
 }
