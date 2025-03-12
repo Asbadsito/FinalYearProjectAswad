@@ -137,10 +137,11 @@ const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay} 
                     {exerciseData.map((exercise, index) => (
                       <div
                         key={index}
-                        className="exerciseCard w-[15%] h-[15%] bg-white p-4 flex flex-col items-center justify-center border rounded-lg cursor-pointer"
+                        className={`exerciseCard w-[15%] h-[15%] bg-white p-4 flex flex-col items-center justify-center border rounded-lg cursor-pointer ${selectedExerciseName === exercise.name ? "border-2 border-blue-200 bg-blue-100" : "border-gray-300"}`}
                         onClick={() => {
                           setSelectedExerciseName(exercise.name);
                           setSelectedExerciseImage(exercise.imgUrl);
+
                         }}
                       >
                         <img
