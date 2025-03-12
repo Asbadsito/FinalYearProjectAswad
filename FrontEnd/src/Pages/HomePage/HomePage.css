@@ -113,3 +113,8 @@
     border-bottom: 0.5px solid rgba(0, 0, 0, 0.466);
     background-color: rgb(18, 58, 37);
 }
+
+.confirmDeletion {
+    font-family: "Poppins";
+    font-size: 14px;
+}

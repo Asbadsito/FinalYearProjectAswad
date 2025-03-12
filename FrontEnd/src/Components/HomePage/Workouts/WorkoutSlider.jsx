@@ -11,16 +11,12 @@ import { replace } from 'react-router-dom';
 import axios from 'axios';
 import { u } from 'framer-motion/client';
 
-const WorkoutSlider = ( {setOverlay , setShowWorkoutDetails , setSelectedWorkout} ) => {
+const WorkoutSlider = ( {setOverlay , setShowWorkoutDetails , setSelectedWorkout , setDeleteConfirmation , setWorkoutToDeleteId , reload , workoutInfo , setWorkoutInfo} ) => {
 
-  const[reload , setReload] = useState(false);
-  const[workoutInfo , setWorkoutInfo] = useState([])
-
-  useEffect (() => {
-
+  useEffect(() => {
+    console.log("useEffect triggered in WorkoutSlider, reload:", reload);
     getAllWorkouts();
-    
-  } , [reload])
+  }, [reload]);
 
   useEffect(() => {
   if (workoutInfo.length > 0) {
@@ -101,7 +97,7 @@ const WorkoutSlider = ( {setOverlay , setShowWorkoutDetails , setSelectedWorkout
              {workoutInfo.length > 0 ? (
               workoutInfo.map((workout, index) => (
                 <SwiperSlide key={index} className="flex items-center justify-center">
-                  <WorkoutComponent workout={workout} setOverlay={setOverlay} setShowWorkoutDetails={setShowWorkoutDetails} setSelectedWorkout={setSelectedWorkout}/>
+                  <WorkoutComponent workout={workout} setOverlay={setOverlay} setShowWorkoutDetails={setShowWorkoutDetails} setSelectedWorkout={setSelectedWorkout} setDeleteConfirmation={setDeleteConfirmation} setWorkoutToDeleteId={setWorkoutToDeleteId}/>
                 </SwiperSlide>
               ))
             ) : (

@@ -6,7 +6,7 @@ import jakarta.persistence.Embeddable;
 @Embeddable
 public class Exercise {
 	private String name;
-	private EXCERCISE_TYPE excerciseType;
+	private EXCERCISE_TYPE exerciseType;
 
 	private String img_URL;
 
@@ -14,9 +14,9 @@ public class Exercise {
 	private Integer sets;
 	private Integer reps;
 
-	public Exercise(String name, EXCERCISE_TYPE excerciseType, String img_URL, Integer duration, Integer sets, Integer reps) {
+	public Exercise(String name, EXCERCISE_TYPE exerciseType, String img_URL, Integer duration, Integer sets, Integer reps) {
 		this.name = name;
-		this.excerciseType = excerciseType;
+		this.exerciseType = exerciseType;
 		this.img_URL = img_URL;
 		this.duration = (duration != null ? duration : 0);
 		this.sets = (sets != null ? sets : 0);
@@ -35,12 +35,12 @@ public class Exercise {
 		this.name = name;
 	}
 
-	public EXCERCISE_TYPE getExcerciseType() {
-		return excerciseType;
+	public EXCERCISE_TYPE getExerciseType() {
+		return exerciseType;
 	}
 
-	public void setExcerciseType(EXCERCISE_TYPE excerciseType) {
-		this.excerciseType = excerciseType;
+	public void setExerciseType(EXCERCISE_TYPE exerciseType) {
+		this.exerciseType = exerciseType;
 	}
 
 	public String getImg_URL() {
@@ -60,7 +60,7 @@ public class Exercise {
 	}
 
 	public int getSets() {
-		return sets;
+		return  sets == null ? 0 : sets;
 	}
 
 	public void setSets(Integer sets) {
@@ -68,7 +68,7 @@ public class Exercise {
 	}
 
 	public int getReps() {
-		return reps;
+		return  reps == null ? 0 : reps;
 	}
 
 	public void setReps(Integer reps) {
@@ -79,7 +79,7 @@ public class Exercise {
 	public String toString() {
 		return "Excercise{" +
 						"name='" + name + '\'' +
-						", excerciseType=" + excerciseType +
+						", excerciseType=" + exerciseType +
 						", img_URL='" + img_URL + '\'' +
 						", duration=" + duration +
 						", sets=" + sets +

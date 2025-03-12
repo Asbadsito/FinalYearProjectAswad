@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './Homepage.css'
 import WorkoutSlider from '../../Components/HomePage/Workouts/WorkoutSlider'
 import CreateWorkout from '../../Components/HomePage/Workouts/CreateWorkout'
+import axios from 'axios'
+import { useEffect } from 'react'
 
 const workoutTypes = {
   CARDIO: {src:"/workout_icons/cardio.png" },
@@ -20,8 +22,89 @@ const HomePage = ( {setOverlay} ) => {
   const[selectedWorkout , setSelectedWorkout] = useState(null);
   const workoutImage = selectedWorkout?.type ? workoutTypes[selectedWorkout.type]?.src : '/workout_icons/default.png';
   const[showCreateWorkout , setShowCreateWorkout] = useState(false);
+  const[deleteConfirmation , setDeleteConfirmation] = useState(false);
+  const[workoutToDeleteId , setWorkoutToDeleteId] = useState("");
+  const[reload , setReload] = useState(false);
+  const[workoutInfo , setWorkoutInfo] = useState([])
+
+  console.log(workoutToDeleteId);
+
+  useEffect(() => {
+  getAllWorkouts();
+  }, [reload]);
 
 
+
+  const getAllWorkouts = async () => {
+    
+    const id = localStorage.getItem("userId");
+    
+    const token = localStorage.getItem("authToken")
+
+    if(!token){
+      console.log("no token found in the localStorage")
+      return
+    }
+    if(!id){
+      console.log("User id was not found - error")
+      return
+    }
+
+    const cleanId = encodeURIComponent(id);
+    const url = `http://localhost:8080/workout/getAllWorkoutsByUserId/${cleanId}`
+
+    try{
+        const response = await axios.get(url ,{
+                headers: {
+                  'Content-Type' : 'application/json',
+                  'Authorization': `Bearer ${token}`
+                },
+        })
+
+        setWorkoutInfo(response.data)
+
+    }
+    catch(error){
+        console.log("workout fetching failed : ", error.response ? error.response.data : error.message)
+    }
+
+  }
+
+
+
+
+  const deleteWorkoutById = () => {
+    if(workoutToDeleteId == null){
+      console.log("No workout selected")
+      return;
+    }
+
+    const token = localStorage.getItem("authToken")
+
+    if(!token){
+      console.log("could not find token")
+      return;
+    }
+
+    const url = `http://localhost:8080/workout/deleteWorkoutById/${workoutToDeleteId}`
+
+     axios.delete(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  .then(response => {
+    console.log("Workout deleted successfully", response.data);
+    getAllWorkouts();
+    setReload(prev => !prev)
+  
+  })
+  .catch(error => {
+    console.error("There was an error deleting the workout:", error);
+   
+  });
+
+  }
 
   return (
     <>
@@ -49,7 +132,7 @@ const HomePage = ( {setOverlay} ) => {
             </div>
             {/* End of workout header : just for my reference so that i dont get lost/}
             {/* Here we call the workout slider with all the workouts fetched */}
-              <WorkoutSlider setOverlay={setOverlay} setShowWorkoutDetails={setShowWorkoutDetails} setSelectedWorkout={setSelectedWorkout}/>
+              <WorkoutSlider setOverlay={setOverlay} setShowWorkoutDetails={setShowWorkoutDetails} setSelectedWorkout={setSelectedWorkout} setDeleteConfirmation={setDeleteConfirmation} setWorkoutToDeleteId={setWorkoutToDeleteId} reload={reload} workoutInfo={workoutInfo} setWorkoutInfo={setWorkoutInfo}/>
           </div>
         </div>
 
@@ -110,8 +193,23 @@ const HomePage = ( {setOverlay} ) => {
         </div>
 
         {/* Here is the absolute div that pops up when we create a new workout, I will make it a component probably*/}
-        <CreateWorkout showCreateWorkout={showCreateWorkout} setShowCreateWorkout={setShowCreateWorkout} setOverlay={setOverlay}/>
-
+        <CreateWorkout showCreateWorkout={showCreateWorkout} setShowCreateWorkout={setShowCreateWorkout} setOverlay={setOverlay} setReload={setReload}/>
+        
+        {/* Here is the deletion page that pops up*/}
+        <div className={`lg:w-96 lg:h-[150px] sm:w-72 sm:h-40 w-52 h-40 bg-gray-200 absolute z-50 
+              top-[40%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg
+              transition-all duration-300 ease-in-out flex flex-col p-5
+              ${deleteConfirmation ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none invisible"}`}> 
+              <div className='confirmDeletion w-full h-7 mt-4 flex justify-center'>Are you sure you want to delete this Workout ? </div>
+              <div className='w-full h-[30%] mt-2 flex justify-center'>
+                <button className='mx-2 w-[20%] h-[80%] mt-1 bg-blue-300 text-white hover:opacity-50 cursor-pointer'
+                        onClick={() => {setOverlay(false) ; setDeleteConfirmation(false) ; setWorkoutToDeleteId("")}}
+                >No</button>
+                <button className='mx-2 w-[20%] h-[80%] mt-1 bg-red-800 text-white hover:opacity-50 cursor-pointer'
+                        onClick={() => {setOverlay(false) ; setDeleteConfirmation(false) ; setWorkoutToDeleteId("") ; deleteWorkoutById() ; }}
+                >Yes</button>
+              </div>
+              </div>
       </div>
     </>
   )

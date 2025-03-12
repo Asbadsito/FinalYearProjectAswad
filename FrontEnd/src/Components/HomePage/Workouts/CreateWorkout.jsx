@@ -4,10 +4,10 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 
-const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay} ) => {
+const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay , setReload} ) => {
 
   {/* SELECTED WORKOUT info for sending via the post request for the workout creation */}
-  const [selectedWorkoutType, setSelectedWorkoutType] = useState("");
+  const [selectedWorkoutType, setSelectedWorkoutType] = useState("CARDIO");
   const[createWorkoutName , setCreateWorkoutName] = useState("");
   const[listOfExerciseForWorkout , setListOfExerciseForWorkout] = useState([]);
 
@@ -23,6 +23,7 @@ const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay} 
     const [reps, setReps] = useState(null);
     const [duration, setDuration] = useState(null);
     const [settingMessage , setSettingMessage] = useState("");
+    const [showSettingMessage , setShowSettingMessage] = useState(false);
 
 
     const workoutTypes = [
@@ -51,32 +52,27 @@ const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay} 
   const addExerciseToList = () => {
     let message = "";
 
-    if(selectedExerciseImage == null && selectedExerciseName == null){
-      message = "Please select an exercise"
-      setSettingMessage(message);
-      console.log(message)
-      return;
-    }
-
-    if(selectedExerciseType === "TIMED"){
-      if(duration == null){
-        message = "Please select a duration"
-        setSettingMessage(message)
-        console.log(message)
+    if (selectedExerciseImage == null || selectedExerciseName == null) {
+        message = "Please select an exercise";
+        setSettingMessage(message);
+        console.log(message);
         return;
-      }
     }
 
-    if(selectedExerciseType === "SET_BASED"){
-      if(sets == null || reps == null){
-        message = "Please select your sets and repetitions"
-        setSettingMessage(message)
-        console.log(message)
+    if (selectedExerciseType === "TIMED" && (duration == null || duration === "")) {
+        message = "Please select a duration";
+        setSettingMessage(message);
+        console.log(message);
         return;
-      }
     }
 
-    message = "Checkings have passed, object has been created, you can see it here : "
+    if (selectedExerciseType === "SET_BASED" && (sets == null || sets === "" || reps == null || reps === "")) {
+        message = "Please select your sets and repetitions";
+        setSettingMessage(message);
+        console.log(message);
+        return;
+    }
+
 
     const newExercise = {
       name: selectedExerciseName,
@@ -90,15 +86,95 @@ const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay} 
     setListOfExerciseForWorkout((prevExercises) => [...prevExercises, newExercise]);
 
     console.log(newExercise);
-    console.log(listOfExerciseForWorkout)
+    console.log(listOfExerciseForWorkout);
 
 
   }
 
+  const deleteExerciseFromList = (exerciseIndexToDelete) => {
+      setListOfExerciseForWorkout((prevExercises) =>
+      prevExercises.filter((_, index) => index !== exerciseIndexToDelete)
+  );
+  setReload((prev) => !prev)
+  }
+
+  const createNewWorkout = () => {
+
+    const token = localStorage.getItem("authToken")
+
+    if(!token){
+      setSettingMessage("No token found")
+      setShowSettingMessage(true);
+      setTimeout(()=> {
+        setShowSettingMessage(false);
+        setSettingMessage("")
+      }, 2000)
+      return;
+    }
+
+    if(selectedWorkoutType == "" || selectedWorkoutType == null || createWorkoutName == "" || createWorkoutName == null){
+       setSettingMessage("Workout type or name was empty, please use valid details")
+      setShowSettingMessage(true);
+      setTimeout(()=> {
+        setShowSettingMessage(false);
+        setSettingMessage("")
+      }, 2000)
+      return;
+    }
+
+    if( listOfExerciseForWorkout && listOfExerciseForWorkout.length === 0){
+       setSettingMessage("List of exercises was empty, please add exercises")
+      setShowSettingMessage(true);
+      setTimeout(()=> {
+        setShowSettingMessage(false);
+        setSettingMessage("")
+      }, 2000)
+      return;
+    }
+
+
+    const workout = {
+        workoutName: createWorkoutName,
+        type: selectedWorkoutType,  
+        listOfExercises: listOfExerciseForWorkout,  
+      };
+    
+    const id = localStorage.getItem("userId")
+
+    if(!id){
+      console.log("User id was not found - error")
+      return
+    }
+
+    // Make post request in here to create the workout
+    const cleanId = encodeURIComponent(id);
+    const url = `http://localhost:8080/workout/createWorkout/${cleanId}`
+
+    axios.post(url, workout, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",  // Add token if available
+        },
+      })
+      .then((response) => {
+        console.log("Workout created successfully:", response.data);
+        setReload(prev => !prev);
+      })
+      .catch((error) => {
+        console.error("Error creating workout:", error.response ? error.response.data : error.message);
+      });
+    
+      
+
+      setOverlay(false);
+      setShowCreateWorkout(false);
+  }
+  
+
 
   return (
-    <div className={`createWorkoutContainer lg:w-[600px] lg:h-[500px] sm:w-[500px] sm:h-[500px] w-[350px] h-[450px] absolute z-50 
-              top-[40%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg
+    <div className={`createWorkoutContainer lg:w-[600px] lg:h-[550px] sm:w-[500px] sm:h-[500px] w-[350px] h-[450px] absolute z-50 
+              top-[43%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 rounded-lg shadow-lg
               transition-all duration-300 ease-in-out
               ${showCreateWorkout ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none invisible"}`}>
        <div className='createTitle mt-4 text-[10px] sm:text-[11px] lg:text-[18px] w-full flex justify-center'>Create Workout</div>
@@ -123,21 +199,60 @@ const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay} 
           </select>
         </div>
         <div className='w-full flex justify-center mt-4'>
-          <button className='addExerciseButton w-28 text-[13px] h-6' onClick={() => {setShowExercisePage(true)}}>Add Exercise</button>
+          <button className='addExerciseButton w-28 text-[13px] h-6 mb-2' onClick={() => {setShowExercisePage(true)}}>Add Exercise</button>
         </div>
+
+        <div className='exerciseSliderList overflow-y-auto max-h-60 w-full border rounded-lg relative' >
+              {listOfExerciseForWorkout.map((exercise, index) => (
+          <div key={index} className="flex items-center relative gap-4 p-4 border shadow-md bg-white">
+            <img src={exercise.img_URL} alt={exercise.name} className="w-16 h-16 object-cover rounded-md ml-2" />
+
+            <div className='flex justify-between items-center'>
+              <h3 className="text-lg font-semibold ml-10">{exercise.name}</h3>
+              <p className="text-sm text-gray-600 ml-10">Type: {exercise.exerciseType}</p>
+
+              {exercise.exerciseType === "SET_BASED" && (
+                <p className="text-sm text-blue-600 ml-10">
+                  Sets: {exercise.sets} | Reps: {exercise.reps}
+                </p>
+              )}
+
+              {exercise.exerciseType === "TIMED" && (
+                <p className="text-sm text-green-600 ml-10">Duration: {exercise.duration} seconds</p>
+              )}
+            </div>
+
+            <i className=" absolute top-2 right-2 fa-solid fa-xmark cursor-pointer hover:opacity-60" onClick={() => {deleteExerciseFromList(index)}}></i>
+          </div>
+          ))}
+      </div>
+
+      <button className='sendWorkoutForCreation absolute right-[35%] bottom-12 w-44 h-12' onClick={() => {createNewWorkout()}}>Create Workout</button>
+      {showSettingMessage && (<div className='absolute bottom-2 w-full h-9 mt-2 text-center text-red-700'>{settingMessage}</div>)}
+
 
             {/* The absolute divs are below this, anything that is supposed to be in the 
             container and not conditionally shown SHOULD NOT be below this part to keep it organsied,otherwise it would be too hard
             to read*/ }
 
-            <i class="close fa-solid fa-x absolute top-4 right-6" onClick={() => {setOverlay(prev => !prev) ; setShowCreateWorkout(false) ; setShowExercisePage(false) ; setListOfExerciseForWorkout([]);}}></i>
+            <i class="close fa-solid fa-x absolute top-4 right-6" onClick={() => 
+              {setOverlay(prev => !prev) ; 
+              setShowCreateWorkout(false) ; 
+              setShowExercisePage(false) ; 
+              setListOfExerciseForWorkout([]); 
+              setSelectedWorkoutType("") ; 
+              setCreateWorkoutName("");
+              setSettingMessage("");
+              setShowSettingMessage(false);
+              }}></i>
+
             {showExercisePage && (<div className='excercisePage absolute w-[90%] h-[65%] border top-12 bg-gray-100 left-[5%] z-60 overflow-auto'>
               
                 <div className="exerciseGrid flex flex-wrap justify-center gap-4 p-4 ">
                     {exerciseData.map((exercise, index) => (
                       <div
                         key={index}
-                        className={`exerciseCard w-[15%] h-[15%] bg-white p-4 flex flex-col items-center justify-center border rounded-lg cursor-pointer ${selectedExerciseName === exercise.name ? "border-2 border-blue-200 bg-blue-100" : "border-gray-300"}`}
+                        className={`exerciseCard w-[15%] h-[15%] bg-white p-4 flex flex-col items-center justify-center border rounded-lg cursor-pointer ${selectedExerciseName === exercise.name ? "border-2 border-blue-200 bg-blue-200" : "border-gray-300"}`}
                         onClick={() => {
                           setSelectedExerciseName(exercise.name);
                           setSelectedExerciseImage(exercise.imgUrl);
@@ -165,7 +280,7 @@ const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay} 
               <div className='text-[14px] w-[70%] h-[80%] ml-2 mt-3 flex relative'>
                 <span className='spanExName ml-4 h-[60px] w-28 text-[14px]'>{selectedExerciseName}</span>
                 <div className="absolute w-48 h-8 top-1 right-9 flex pl-8">
-                  <div className={`px-2 py-1 text-[11px] w-36 h-6 bg-gray-100 text-black cursor-pointer hover:opacity-90 text-center ${selectedExerciseType === "SET_BASED" ? "text-white bg-blue-900" : ""}`}
+                  <div className={`px-2 py-1 text-[11px] w-36 h-6 bg-gray-100 text-black cursor-pointer hover:opacity-90 text-center ${selectedExerciseType === "SET_BASED" ? "text-white bg-orange-300" : ""}`}
                        onClick={() => {
                         setSelectedExerciseType("SET_BASED");
                         setDuration(null); 
@@ -175,7 +290,7 @@ const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay} 
                   >
                     SET BASED
                   </div>
-                  <div className={`px-2 py-1 text-[11px] w-36 h-6 bg-gray-100 text-black  cursor-pointer hover:opacity-90 text-center ${selectedExerciseType === "TIMED" ? "text-white bg-blue-900" : ""}`}
+                  <div className={`px-2 py-1 text-[11px] w-36 h-6 bg-gray-100 text-black  cursor-pointer hover:opacity-90 text-center ${selectedExerciseType === "TIMED" ? "text-white bg-orange-300" : ""}`}
                        onClick={() => {
                         setSelectedExerciseType("TIMED");
                         setSets(null); 
@@ -237,7 +352,7 @@ const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay} 
                         }}
                 > Add Exercise</button>
               </div>
-
+              <div className='hidden bg-blue-950'> </div>
             </div>)}
    </div>
   )

@@ -12,12 +12,13 @@ const workoutTypes = {
   STRENGTH: {src:"/workout_icons/strength.png"}
 }
 
-const WorkoutComponent = ( {workout , setOverlay , setShowWorkoutDetails , setSelectedWorkout} ) => {
+
+const WorkoutComponent = ( {workout , setOverlay , setShowWorkoutDetails , setSelectedWorkout , setDeleteConfirmation , setWorkoutToDeleteId} ) => {
 
   const workoutImage = workoutTypes[workout.type] ? workoutTypes[workout.type].src : '/workout_icons/default.png';
 
   return (
-    <div className='workoutComponentContainer w-28 h-[95%] bg-white ml-1 flex flex-col rounded-sm'>
+    <div className='workoutComponentContainer w-28 h-[95%] bg-white ml-1 flex flex-col rounded-sm relative'>
         <div className="type bg-gray-200 w-full h-[50%] flex justify-center items-center">
           <img src={workoutImage} className="workoutImage w-12 h-auto" />
         </div>
@@ -25,7 +26,10 @@ const WorkoutComponent = ( {workout , setOverlay , setShowWorkoutDetails , setSe
         <div className='w-auto h-[25%] flex justify-center items-center'>
           <button className='viewDetails text-[11px] w-[70%] h-5 mb-2' onClick={() => {setOverlay(prev => !prev) ; setShowWorkoutDetails(true) ; setSelectedWorkout(workout)}}>View details</button>
         </div>
+        <i className="absolute text-[10px] text-blue-900 hover:opacity-50 cursor-pointer top-1 right-1 fa-solid fa-trash" onClick={() => {setDeleteConfirmation(true) ; setOverlay(prev => !prev) ; setWorkoutToDeleteId(workout.id)}}></i>
     </div>
+
+
   )
 }
 
