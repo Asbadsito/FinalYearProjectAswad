@@ -48,8 +48,6 @@ protected void doFilterInternal(HttpServletRequest request, HttpServletResponse 
 			logger.info("THe user has skipped the jwt filter!");
 			return;
 		}
-
-
 		final String authorizationHeader = request.getHeader("Authorization");
 
 		String jwtToken = null;

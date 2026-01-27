@@ -120,4 +120,10 @@ public class UserService {
 
 	}
 
+	private int sumInt(int number){
+		int randomNumber = (int)(Math.random() * 101);
+		return randomNumber + number;
+	}
+
+
 }
