@@ -153,7 +153,7 @@ const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay ,
     axios.post(url, workout, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: token ? `Bearer ${token}` : "",  // Add token if available
+          Authorization: token ? `Bearer ${token}` : "",  
         },
       })
       .then((response) => {
@@ -168,6 +168,10 @@ const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay ,
 
       setOverlay(false);
       setShowCreateWorkout(false);
+      setListOfExerciseForWorkout([]); 
+      setSelectedWorkoutType("CARDIO") ; 
+      setCreateWorkoutName("");
+      setSettingMessage("");
   }
   
 
@@ -240,7 +244,7 @@ const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay ,
               setShowCreateWorkout(false) ; 
               setShowExercisePage(false) ; 
               setListOfExerciseForWorkout([]); 
-              setSelectedWorkoutType("") ; 
+              setSelectedWorkoutType("CARDIO") ; 
               setCreateWorkoutName("");
               setSettingMessage("");
               setShowSettingMessage(false);
@@ -248,11 +252,11 @@ const CreateWorkout = ( {showCreateWorkout , setShowCreateWorkout , setOverlay ,
 
             {showExercisePage && (<div className='excercisePage absolute w-[90%] h-[65%] border top-12 bg-gray-100 left-[5%] z-60 overflow-auto'>
               
-                <div className="exerciseGrid flex flex-wrap justify-center gap-4 p-4 ">
+                <div className="exerciseGrid flex flex-wrap justify-center gap-4 p-4 pb-10">
                     {exerciseData.map((exercise, index) => (
                       <div
                         key={index}
-                        className={`exerciseCard w-[15%] h-[15%] bg-white p-4 flex flex-col items-center justify-center border rounded-lg cursor-pointer ${selectedExerciseName === exercise.name ? "border-2 border-blue-200 bg-blue-200" : "border-gray-300"}`}
+                        className={`exerciseCard w-[15%] h-[15%] bg-white p-4 flex flex-col items-center justify-center border rounded-lg cursor-pointer ${selectedExerciseName === exercise.name ? "border-2 border-blue-200 bg-yellow-100" : "border-gray-300"}`}
                         onClick={() => {
                           setSelectedExerciseName(exercise.name);
                           setSelectedExerciseImage(exercise.imgUrl);

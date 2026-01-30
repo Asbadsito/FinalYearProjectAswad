@@ -130,6 +130,7 @@ const HomePage = ( {setOverlay} ) => {
                 text-[8px] sm:text-[8px] md:text-[12px] lg:text-[13px]' onClick={() => {setShowCreateWorkout(true) ; setOverlay(true)}}>Create Workout</button>
               </div>
             </div>
+
             {/* End of workout header : just for my reference so that i dont get lost/}
             {/* Here we call the workout slider with all the workouts fetched */}
               <WorkoutSlider setOverlay={setOverlay} setShowWorkoutDetails={setShowWorkoutDetails} setSelectedWorkout={setSelectedWorkout} setDeleteConfirmation={setDeleteConfirmation} setWorkoutToDeleteId={setWorkoutToDeleteId} reload={reload} workoutInfo={workoutInfo} setWorkoutInfo={setWorkoutInfo}/>
@@ -140,6 +141,25 @@ const HomePage = ( {setOverlay} ) => {
           <div className='w-full h-full flex flex-col'>
             <div className='diets-header w-full h-[25%] flex rounded-t-lg'>
                 <div className='workouts-title pl-4 w-[20%] h-full text-[14px] sm:text-[12px] md:text-[18px]'>Diets:</div>
+                <div className='workouts-search w-[50%] h-full'>
+                    <input className="workoutSearchInput
+                    w-24 ml-5 md:ml-0 h-[50%] sm:w-44 sm:h-[60%] md:w-72 lg:w-80 xl:w-[30rem] 
+                    px-4 py-2 rounded-md border border-gray-600 
+                    focus:outline-none focus:ring-0 focus:border-transparent
+                    transition-all duration-300 ease-in-out
+                    text-[11px] sm:text-[12px] md:text-[14px] leading-[1.5]"
+                    type='text' placeholder='Search Diet....'>
+                    </input>
+              </div>
+
+               <div className='w-[30%] h-full flex justify-center items-center'>
+                  <button className='createWorkoutButton w-20 sm:w-24 md:w-32 lg:w-36 h-[60%] 
+                  text-[8px] sm:text-[8px] md:text-[12px] lg:text-[13px]'>Create Diet</button>
+              </div>
+
+            </div>
+            <div className='w-full h-[75%] flex flex-col justify-center items-center'>
+              {/*} ALL Diets will go here*/}
             </div>
           </div>
         </div>
@@ -149,6 +169,12 @@ const HomePage = ( {setOverlay} ) => {
             <div className='sharing-header w-full h-[12%] flex rounded-t-lg'>
                 <div className='workouts-title pl-4 w-[50%] h-full text-[14px] sm:text-[12px] md:text-[18px]'>Sharing:</div>
             </div>
+
+            <div className='w-full h-[75%] flex flex-col justify-center items-center'>
+              <img src='/images/working.png' className='w-24 h-auto'></img>
+              <span className='devText'> Currently in development</span>
+            </div>
+
           </div>
         </div>
 
@@ -181,7 +207,7 @@ const HomePage = ( {setOverlay} ) => {
                   <div class="main-content w-full h-full overflow-y-auto">
                      {selectedWorkout?.listOfExercises?.map((exercise, index) => (
                     <div key={index} className='workoutExercise w-full h-[20%] flex items-center justify-start bg-gray-100'>
-                      <img src={exercise.imgUrl} alt={exercise.name} className="exerciseImage w-12 h-12 rounded-full mr-4" />
+                      <img src={exercise.img_URL} alt={exercise.name} className="exerciseImage w-12 h-12 rounded-full mr-4" />
                       <span className="exerciseName text-sm">{exercise.name}</span>
                       <span>{}</span>
                     </div>))}
