@@ -4,6 +4,7 @@ Final Year Project - WellShareNet
 Unfinished features, works with basic creation,deletion and viewing
 
 
+![Application Walkthrough](demo_assets/reg_gif.gif)
 
 ![WellShareNet Screen 1](demo_assets/wellsharenet1.png)
 
